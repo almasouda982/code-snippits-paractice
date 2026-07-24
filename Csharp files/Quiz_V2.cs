@@ -22,7 +22,7 @@ namespace BootCamp1.Practice
             int num2 = random.Next(1, 11);
 
 
-            Console.Write($"{x}. {num1} * {num2} = ");
+            Console.Write($"Question({x}): {num1} * {num2} = ");
             int ans = int.Parse(Console.ReadLine());
 
                 if (num1 * num2 == ans)
@@ -34,6 +34,7 @@ namespace BootCamp1.Practice
                     Console.WriteLine("InCorrect");
                 }
 
+                Console.WriteLine();
 
 
             }
