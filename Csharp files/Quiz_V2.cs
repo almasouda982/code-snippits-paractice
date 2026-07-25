@@ -16,7 +16,7 @@ namespace BootCamp1.Practice
 
 
             //generate a 10 random multipication quiz correct or not correct
-             int count = 0;
+            int count = 0;
             for (int x = 1; 10>=x; x++)
             {
             int num1 = random.Next(1, 11);
@@ -28,18 +28,43 @@ namespace BootCamp1.Practice
                 if (num1 * num2 == ans)
                 {
                     Console.WriteLine("Correct!");
-                    count++;
+                    count+= 10;
                 }
                 else
                 {
-                    Console.WriteLine("InCorrect");
+                    Console.WriteLine("Wrong");
                 }
 
                 Console.WriteLine();
 
 
             }
-                Console.WriteLine($"Your score is {count}/10");
+            // calculate score and grade
+            if (count >= 90)
+            {
+               Console.WriteLine($"Your grade is A and score is {count}/100");
+            }
+            else if (count >= 80)
+            {
+               Console.WriteLine($"Your grade is B and score is {count}/100");
+
+            }
+            else if (count >= 70)
+            {
+               Console.WriteLine($"Your grade is C and score is {count}/100");
+
+            }
+            else if (count >= 60)
+            {
+               Console.WriteLine($"Your grade is D and score is {count}/100");
+            }
+
+            else
+            {
+
+                Console.WriteLine($"Your grade is F and score is {count}/100 you failed");
+
+            }
 
             Console.ReadKey(true);
         }
