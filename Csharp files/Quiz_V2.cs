@@ -16,6 +16,7 @@ namespace BootCamp1.Practice
 
 
             //generate a 10 random multipication quiz correct or not correct
+             int count = 0;
             for (int x = 1; 10>=x; x++)
             {
             int num1 = random.Next(1, 11);
@@ -24,10 +25,10 @@ namespace BootCamp1.Practice
 
             Console.Write($"Question({x}): {num1} * {num2} = ");
             int ans = int.Parse(Console.ReadLine());
-
                 if (num1 * num2 == ans)
                 {
                     Console.WriteLine("Correct!");
+                    count++;
                 }
                 else
                 {
@@ -38,6 +39,7 @@ namespace BootCamp1.Practice
 
 
             }
+                Console.WriteLine($"Your score is {count}/10");
 
             Console.ReadKey(true);
         }
