@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BootCamp1.Level2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstConsoleApp.Level
+namespace BootCamp1.Level
 {
     internal class Calling
     {
@@ -16,9 +17,9 @@ namespace FirstConsoleApp.Level
         static void Main(string[] args)
         {
 
+            Methods methods = new Methods();
 
-
-            Console.WriteLine("Chose your funtion \n1.Compute BMI\n2.Compute PCT");
+            Console.Write("Choose your funtion \n1.Compute BMI\n2.Compute PCT \n3. Check Day\n4. Check Workday\n5. Quiz\n6. Compute Salary\n7. Login\n8. Calculator\n: ");
             int input = int.Parse(Console.ReadLine());
 
 
@@ -26,10 +27,28 @@ namespace FirstConsoleApp.Level
             switch (input)
             {
                 case 1:
-                    BMI();
+                    methods.Compute_BMI();
                     break;
                 case 2:
-                    Compute_PCT();
+                    methods.Compute_PCT();
+                    break;
+                case 3:
+                    methods.Check_day();
+                    break;
+                case 4:
+                    methods.Check_Workday();
+                    break;
+                case 5:
+                    methods.Quiz();
+                    break;
+                case 6:
+                    methods.Compute_Salary();
+                    break;
+                case 7:
+                    methods.Login();
+                    break;
+                case 8:
+                    methods.Calculator();
                     break;
                 default:
                     Console.WriteLine("Invalid input");
@@ -42,137 +61,6 @@ namespace FirstConsoleApp.Level
             Console.ReadKey(true);
         }
 
-        static void BMI()
-        {
-            /*
-
-          //Compute_BMI 
-
-          // Enter Patient Name:
-          // Enter Patient Weight: 87
-          // Enter Patient Height: 187
-
-
-          // BMI = weight /       (height/100)^2
-
-
-          // print Patient Name:
-          //print Patient Weight:
-          // print Patient Height:
-          // print Patient BMI: 18 - 30
-
-          *
-          *
-          */
-
-
-
-            Console.Write("Enter the patient's name: ");
-            string name = Console.ReadLine();
-            Console.WriteLine();
-            Console.Write("Enter the patient's weight: ");
-            int PatientWeight = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-            Console.Write("Enter the patient's height: ");
-            int PatientHeight = int.Parse(Console.ReadLine());
-
-
-
-            double BMI = PatientWeight / Math.Pow(PatientHeight / 100.0, 2.0);
-
-            Console.WriteLine();
-            Console.WriteLine($"The patient {name} with their weight as {PatientWeight} and height as {PatientHeight} have a BMI score as: {BMI}");
-            Console.WriteLine();
-
-            // if >=30  obese
-            // if bmi >=25  and <30 overweight
-            // if >18.5 <25 normal weight
-            // <18.5 underwightl
-
-            if (BMI >= 30)
-            {
-                Console.WriteLine("Obese");
-            }
-            else if (BMI >= 25)
-            {
-                Console.WriteLine("Overweight");
-            }
-            else if (BMI >= 18.5)
-            {
-                Console.WriteLine("normal weight");
-            }
-            else
-            {
-                Console.WriteLine("Underweight");
-            }
-
-
-
-
-            Console.ReadKey(true);
-        }
-
-        static void Compute_PCT()
-        {
-            List<string> list = new List<string>();
-            string print = "";
-            for (int i = 0; i < 5; i++)
-            {
-                // values insertion
-                Console.Write("Enter the Name ");
-                string name = Console.ReadLine();
-                Console.WriteLine();
-                Console.Write("Enter the mark ");
-                double mark = double.Parse(Console.ReadLine());
-                Console.WriteLine();
-                Console.Write("Enter the full mark ");
-                double fullMark = double.Parse(Console.ReadLine());
-                double percentage = (mark / fullMark) * 100;
-
-
-
-                if (percentage >= 85)
-                {
-                    print = ("an excellent grade!");
-                }
-                else if (percentage >= 75)
-                {
-                    print = ("a very good Grade!");
-
-                }
-                else if (percentage >= 65)
-                {
-                    print = "a good grade!";
-                }
-                else if (percentage >= 50)
-                {
-                    print = ("a passing");
-                }
-                else
-                {
-                    print = "bad you failed :( ";
-                }
-                // Print
-
-
-
-                list.Add($"{name} amrk {mark} full mark {fullMark} and grade is {print} and the percentage is {percentage}");
-
-
-            }
-            // List Print
-            foreach (string item in list)
-            {
-                Console.WriteLine(item);
-            }
-
-
-
-
-
-
-            Console.ReadKey(true);
-        }
 
     }
 }
