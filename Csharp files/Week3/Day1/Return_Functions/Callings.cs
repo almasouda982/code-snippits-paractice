@@ -9,96 +9,99 @@ namespace FirstConsoleApp.Week3.Day1.Return_Functions
 {
     internal class Callings
     {
-        static void Main(string[] args)
-        {
-            Methods methods = new Methods();
+        //static void Main(string[] args)
+        //{
+        //    Methods methods = new Methods();
 
 
 
 
 
-            //// PCT3 Return type
-            //Console.Write("Enter the Name ");
-            //string fullname = Console.ReadLine();
-            //Console.WriteLine();
-            //Console.Write("Enter the mark ");
-            //double mark = double.Parse(Console.ReadLine());
-            //Console.WriteLine();
-            //Console.Write("Enter the full mark ");
-            //double fullMark = double.Parse(Console.ReadLine());
+        //    //// PCT3 Return type
+        //    //Console.Write("Enter the Name ");
+        //    //string fullname = Console.ReadLine();
+        //    //Console.WriteLine();
+        //    //Console.Write("Enter the mark ");
+        //    //double mark = double.Parse(Console.ReadLine());
+        //    //Console.WriteLine();
+        //    //Console.Write("Enter the full mark ");
+        //    //double fullMark = double.Parse(Console.ReadLine());
 
-            ////method calling
-            //double percentage = methods.Compute_Pct3(fullname, mark, fullMark);
-            //Console.WriteLine(percentage);
-
-
-            ////BMI3 Return Type
-            //Console.Write("Enter the patient's name: ");
-            //string name = Console.ReadLine();
-            //Console.WriteLine();
-            //Console.Write("Enter the patient's weight: ");
-            //int PatientWeight = int.Parse(Console.ReadLine());
-            //Console.WriteLine();
-            //Console.Write("Enter the patient's height: ");
-            //int PatientHeight = int.Parse(Console.ReadLine());
-
-            ////method calling
-            //double BMI = methods.Compute_BMI3(name, PatientWeight, PatientHeight);
-            //Console.WriteLine(BMI);
+        //    ////method calling
+        //    //double percentage = methods.Compute_Pct3(fullname, mark, fullMark);
+        //    //Console.WriteLine(percentage);
 
 
+        //    ////BMI3 Return Type
+        //    //Console.Write("Enter the patient's name: ");
+        //    //string name = Console.ReadLine();
+        //    //Console.WriteLine();
+        //    //Console.Write("Enter the patient's weight: ");
+        //    //int PatientWeight = int.Parse(Console.ReadLine());
+        //    //Console.WriteLine();
+        //    //Console.Write("Enter the patient's height: ");
+        //    //int PatientHeight = int.Parse(Console.ReadLine());
 
-
-
-            //------ Home work--------
-
-
-            //BMI4 Return Type
-            Console.Write("Enter the patient's name: ");
-            string name = Console.ReadLine();
-            Console.WriteLine();
-            Console.Write("Enter the patient's weight: ");
-            int PatientWeight = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-            Console.Write("Enter the patient's height: ");
-            int PatientHeight = int.Parse(Console.ReadLine());
-
-            //method calling
-            List<object> calbmi = methods.Compute_BMI4(name, PatientWeight, PatientHeight);
-
-            foreach (object obj in calbmi)
-            {
-                Console.Write($"{obj} ");
-            }
+        //    ////method calling
+        //    //double BMI = methods.Compute_BMI3(name, PatientWeight, PatientHeight);
+        //    //Console.WriteLine(BMI);
 
 
 
 
 
-            // PCT4 Return type
-            Console.Write("Enter the Name ");
-            string fullname = Console.ReadLine();
-            Console.WriteLine();
-            Console.Write("Enter the mark ");
-            double mark = double.Parse(Console.ReadLine());
-            Console.WriteLine();
-            Console.Write("Enter the full mark ");
-            double fullMark = double.Parse(Console.ReadLine());
-
-            //method calling
-            List<object> calPct = methods.Compute_Pct4(fullname, mark, fullMark);
-
-            foreach (object obj in calPct)
-            {
-                Console.Write($"{obj} ");
-            }
+        //    //------ Homework--------
 
 
+        //    //BMI4 Return Type
+        //    Console.Write("Enter the patient's name: ");
+        //    string name = Console.ReadLine();
+        //    Console.WriteLine();
+        //    Console.Write("Enter the patient's weight: ");
+        //    int PatientWeight = int.Parse(Console.ReadLine());
+        //    Console.WriteLine();
+        //    Console.Write("Enter the patient's height: ");
+        //    int PatientHeight = int.Parse(Console.ReadLine());
+
+        //    //method calling
+        //    List<object> calBmi = methods.Compute_BMI4(name, PatientWeight, PatientHeight);
+
+        //    //Printing List
+        //    foreach (object obj in calBmi)
+        //    {
+        //        Console.Write($"{obj} ");
+        //    }
 
 
-            Console.ReadKey();
 
-        }
+
+
+        //    // PCT4 Return type
+        //    Console.Write("Enter the Name ");
+        //    string fullname = Console.ReadLine();
+        //    Console.WriteLine();
+        //    Console.Write("Enter the mark ");
+        //    double mark = double.Parse(Console.ReadLine());
+        //    Console.WriteLine();
+        //    Console.Write("Enter the full mark ");
+        //    double fullMark = double.Parse(Console.ReadLine());
+
+        //    //method calling
+        //    List<object> calPct = methods.Compute_Pct4(fullname, mark, fullMark);
+
+
+        //    //printing list
+        //    foreach (object obj in calPct)
+        //    {
+        //        Console.Write($"{obj} ");
+        //    }
+
+
+
+
+        //    Console.ReadKey();
+
+        //}
 
     }
 }

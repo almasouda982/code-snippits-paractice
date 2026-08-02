@@ -99,15 +99,15 @@ namespace FirstConsoleApp.Week3.Day1.Return_Functions
         //------------------turn to list return method type---------------- 
         public List<object> Compute_BMI4(string name, double weight, double height)
         {
-            List<object> calbmi = new List<object>();
+            List<object> calBmi = new List<object>();
             double BMI = weight / Math.Pow((height / 100), 2);
-            calbmi.Add(name);
-            calbmi.Add(weight);
-            calbmi.Add(height);
-            calbmi.Add(BMI);
+            calBmi.Add(name);
+            calBmi.Add(weight);
+            calBmi.Add(height);
+            calBmi.Add(BMI);
 
             
-            return calbmi;
+            return calBmi;
 
 
         }
