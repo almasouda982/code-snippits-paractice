@@ -45,9 +45,7 @@ namespace BootCamp1.Week4.Assignments.Vehicles
             return $"The Animal's Name: {Name}, Age: {Age}, Color: {Color}";
         }
 
-        public virtual string MakesSound()
-        {
-            return "";
-        }
+        public abstract string MakesSound();
+        
     }
 }

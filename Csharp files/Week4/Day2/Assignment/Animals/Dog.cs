@@ -32,9 +32,9 @@ namespace BootCamp1.Week4.Assignments.Vehicles
             return $"{base.DisplayInfo()} the breed is: {Breed}";
         }
 
-        public string Bark()
+        public override string MakesSound()
         {
-            return "It goea Bark ";
+            return "It goes Bark ";
         }
 
     }

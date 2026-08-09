@@ -33,7 +33,7 @@ namespace BootCamp1.Week4.Assignments.Vehicles
             return $"{base.DisplayInfo()} The cat is indoors: {IsIndoor}";
         }
 
-        public string Meow()
+        public override string MakesSound()
         {
             return " It goes Meow ";
         }

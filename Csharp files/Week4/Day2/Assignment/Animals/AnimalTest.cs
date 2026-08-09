@@ -25,33 +25,9 @@ namespace BootCamp1.Week4.Assignments.Vehicles
 
             foreach (var animal in animals)
             {
-                string details = $" {animal.DisplayInfo()}.";
-
-                if (animal is Bird bird)
-                {
-                    Console.Write(details);
-                    Console.WriteLine($" {animal.MakesSound()}");
-
-                }
-                else if (animal is Fish fish)
-                {
-                    Console.Write(details);
-                    Console.WriteLine($" {animal.MakesSound()}");
-
-
-                }
-                else if (animal is Cat cat)
-                {
-                    Console.Write(details);
-                    Console.WriteLine($" {cat.Meow()}");
-
-                }
-                else if (animal is Dog dog)
-                {
-                    Console.Write(details);
-                    Console.WriteLine($" {dog.Bark()}");
-
-                }
+                string details = $" {animal.DisplayInfo()} {animal.MakesSound()}.";
+                Console.WriteLine(details);
+  
             }
 
 
