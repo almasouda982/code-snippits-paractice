@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Classic HTML5 Tetris (10x20 Standard)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #121218;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .game-container {
+      position: relative;
+      display: flex;
+      gap: 20px;
+      background: #1e1e28;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    canvas {
+      border: 2px solid #333;
+      background-color: #0d0d12;
+      border-radius: 4px;
+    }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 160px;
+    }
+    .info-box {
+      background: #121218;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .info-box h3 {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+    .info-box p {
+      font-size: 22px;
+      font-weight: bold;
+      color: #00f0ff;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn {
+      background: #00f0ff;
+      color: #121218;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .btn:hover {
+      background: #00c8d6;
+      transform: translateY(-2px);
+    }
+    .btn-quit {
+      background: #ff0055;
+      color: #fff;
+    }
+    .btn-quit:hover {
+      background: #d60047;
+    }
+    .btn-secondary {
+      background: #2a2a38;
+      color: #aaa;
+      font-size: 13px;
+      padding: 8px;
+    }
+    .btn-secondary:hover {
+      background: #38384a;
+      color: #fff;
+    }
+    
+    /* Volume Slider Styles */
+    .volume-box {
+      background: #121218;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .volume-box label {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .volume-box span {
+      color: #00f0ff;
+      font-weight: bold;
+    }
+    .volume-slider {
+      width: 100%;
+      height: 6px;
+      background: #333;
+      border-radius: 3px;
+      outline: none;
+      accent-color: #00f0ff;
+      cursor: pointer;
+    }
+
+    .controls-hint {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    /* Modal / You Lose Screen Overlay */
+    .modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 13, 18, 0.94);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      z-index: 10;
+      box-shadow: inset 0 0 20px rgba(255, 0, 85, 0.2);
+    }
+    .modal.hidden {
+      display: none;
+    }
+    .modal h2 {
+      font-size: 32px;
+      color: #ff0055;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+    }
+    .final-score {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .final-score span {
+      color: #00f0ff;
+      font-weight: bold;
+    }
+    .new-high-score {
+      color: #00ffaa;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 12px;
+      animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+    .high-scores-box {
+      background: #121218;
+      padding: 12px 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 260px;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+    }
+    .high-scores-box h3 {
+      font-size: 12px;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    .high-scores-box ol {
+      list-style: decimal inside;
+      color: #00f0ff;
+      font-weight: bold;
+      font-size: 15px;
+      text-align: left;
+    }
+    .high-scores-box li {
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #1e1e28;
+    }
+    .high-scores-box li:last-child {
+      border-bottom: none;
+    }
+    .high-scores-box span {
+      color: #fff;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background Music Audio Element -->
+<audio id="bg-music" src="Tetrismusic.m4a" loop></audio>
+
+<div class="game-container">
+  <canvas id="tetris" width="200" height="400"></canvas>
+  
+  <div class="sidebar">
+    <div>
+      <div class="info-box">
+        <h3>Next</h3>
+        <canvas id="next" width="80" height="80"></canvas>
+      </div>
+      <div class="info-box">
+        <h3>Score</h3>
+        <p id="score">0</p>
+      </div>
+      <div class="info-box">
+        <h3>Best Record</h3>
+        <p id="best-score">0</p>
+      </div>
+      <div class="info-box">
+        <h3>Level</h3>
+        <p id="level">1</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="button-group">
+        <button class="btn" id="start-btn">Start Game</button>
+        <button class="btn btn-quit" id="quit-btn">Quit Game</button>
+        <button class="btn btn-secondary" id="mute-btn">🔊 Sound: ON</button>
+      </div>
+
+      <div class="volume-box">
+        <label for="volume-slider">Volume <span id="volume-val">1%</span></label>
+        <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.005" value="0.01">
+      </div>
+
+      <div class="controls-hint">
+        <strong>Controls:</strong><br/>
+        ← / → : Move<br/>
+        ↑ : Rotate<br/>
+        ↓ : Soft Drop<br/>
+        Space : Hard Drop<br/>
+        Esc : Pause / Resume
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over Screen -->
+  <div id="game-over-modal" class="modal hidden">
+    <h2>YOU LOSE</h2>
+    <p class="final-score">Final Score: <span id="final-score-val">0</span></p>
+    <p id="new-high-score-msg" class="new-high-score hidden">🎉 NEW HIGH SCORE!</p>
+    
+    <div class="high-scores-box">
+      <h3>Top 5 Records</h3>
+      <ol id="high-scores-list"></ol>
+    </div>
+
+    <button class="btn" id="modal-restart-btn">Play Again</button>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('tetris');
+  const context = canvas.getContext('2d');
+  const nextCanvas = document.getElementById('next');
+  const nextContext = nextCanvas.getContext('2d');
+  const bgMusic = document.getElementById('bg-music');
+  const volumeSlider = document.getElementById('volume-slider');
+  const volumeVal = document.getElementById('volume-val');
+
+  // Default volume to 1% (0.01)
+  bgMusic.volume = 0.01;
+
+  context.scale(20, 20);
+  nextContext.scale(20, 20);
+
+  const COLORS = [
+    null,
+    '#00f0ff', // I - Cyan
+    '#0000ff', // J - Blue
+    '#ff7f00', // L - Orange
+    '#ffff00', // O - Yellow
+    '#00ff00', // S - Green
+    '#a000f0', // T - Purple
+    '#ff0000'  // Z - Red
+  ];
+
+  const SHAPES = [
+    [],
+    [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], // I
+    [[2,0,0],[2,2,2],[0,0,0]],                 // J
+    [[0,0,3],[3,3,3],[0,0,0]],                 // L
+    [[4,4],[4,4]],                             // O
+    [[0,5,5],[5,5,0],[0,0,0]],                 // S
+    [[0,6,0],[6,6,6],[0,0,0]],                 // T
+    [[7,7,0],[0,7,7],[0,0,0]]                  // Z
+  ];
+
+  function createMatrix(w, h) {
+    const matrix = [];
+    while (h--) matrix.push(new Array(w).fill(0));
+    return matrix;
+  }
+
+  const arena = createMatrix(10, 20);
+
+  const player = {
+    pos: {x: 0, y: 0},
+    matrix: null,
+    nextMatrix: null,
+    score: 0,
+    lines: 0,
+    level: 1
+  };
+
+  let dropCounter = 0;
+  let dropInterval = 1000;
+  let lastTime = 0;
+  let isGameOver = false;
+  let isRunning = false;
+  let isPaused = false;
+  let isMuted = false;
+
+  // 7-Bag Randomizer State
+  let pieceBag = [];
+
+  function generate7Bag() {
+    const bag = [1, 2, 3, 4, 5, 6, 7];
+    // Fisher-Yates shuffle
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+    return bag;
+  }
+
+  function getRandomPiece() {
+    if (pieceBag.length === 0) {
+      pieceBag = generate7Bag();
+    }
+    const type = pieceBag.pop();
+    return SHAPES[type];
+  }
+
+  function playMusic() {
+    if (!isMuted) {
+      bgMusic.play().catch(e => console.log("Audio play blocked:", e));
+    }
+  }
+
+  function pauseMusic() {
+    bgMusic.pause();
+  }
+
+  function resetMusic() {
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+  }
+
+  function getHighScores() {
+    const scores = localStorage.getItem('tetris_high_scores');
+    return scores ? JSON.parse(scores) : [];
+  }
+
+  function saveHighScore(newScore) {
+    let scores = getHighScores();
+    let isNewHigh = false;
+
+    if (newScore > 0) {
+      if (scores.length < 5 || newScore > scores[scores.length - 1]) {
+        isNewHigh = true;
+      }
+      scores.push(newScore);
+      scores.sort((a, b) => b - a);
+      scores = scores.slice(0, 5);
+      localStorage.setItem('tetris_high_scores', JSON.stringify(scores));
+    }
+
+    return { isNewHigh, scores };
+  }
+
+  function updateBestScoreDisplay() {
+    const scores = getHighScores();
+    document.getElementById('best-score').innerText = scores.length > 0 ? scores[0] : 0;
+  }
+
+  function showGameOverModal() {
+    resetMusic();
+    const { isNewHigh, scores } = saveHighScore(player.score);
+    document.getElementById('final-score-val').innerText = player.score;
+
+    const newMsgEl = document.getElementById('new-high-score-msg');
+    if (isNewHigh) {
+      newMsgEl.classList.remove('hidden');
+    } else {
+      newMsgEl.classList.add('hidden');
+    }
+
+    const listEl = document.getElementById('high-scores-list');
+    listEl.innerHTML = '';
+    if (scores.length === 0) {
+      listEl.innerHTML = '<li>No records set yet</li>';
+    } else {
+      scores.forEach(s => {
+        const li = document.createElement('li');
+        li.innerText = s.toLocaleString();
+        listEl.appendChild(li);
+      });
+    }
+
+    updateBestScoreDisplay();
+    document.getElementById('game-over-modal').classList.remove('hidden');
+  }
+
+  function togglePause() {
+    if (!isRunning || isGameOver) return;
+    isPaused = !isPaused;
+    if (isPaused) {
+      pauseMusic();
+    } else {
+      playMusic();
+      lastTime = performance.now();
+      requestAnimationFrame(update);
+    }
+    draw();
+  }
+
+  function collide(arena, player) {
+    const m = player.matrix;
+    const o = player.pos;
+    for (let y = 0; y < m.length; ++y) {
+      for (let x = 0; x < m[y].length; ++x) {
+        if (m[y][x] !== 0 &&
+           (arena[y + o.y] && arena[y + o.y][x + o.x]) !== 0) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function merge(arena, player) {
+    player.matrix.forEach((row, y) => {
+      row.forEach((value, x) => {
+        if (value !== 0) {
+          arena[y + player.pos.y][x + player.pos.x] = value;
+        }
+      });
+    });
+  }
+
+  function rotate(matrix, dir) {
+    for (let y = 0; y < matrix.length; ++y) {
+      for (let x = 0; x < y; ++x) {
+        [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+      }
+    }
+    if (dir > 0) matrix.forEach(row => row.reverse());
+    else matrix.reverse();
+  }
+
+  function playerRotate(dir) {
+    const pos = player.pos.x;
+    let offset = 1;
+    rotate(player.matrix, dir);
+    while (collide(arena, player)) {
+      player.pos.x += offset;
+      offset = -(offset + (offset > 0 ? 1 : -1));
+      if (offset > player.matrix[0].length) {
+        rotate(player.matrix, -dir);
+        player.pos.x = pos;
+        return;
+      }
+    }
+  }
+
+  function arenaSweep() {
+    let rowCount = 0;
+    outer: for (let y = arena.length - 1; y >= 0; --y) {
+      for (let x = 0; x < arena[y].length; ++x) {
+        if (arena[y][x] === 0) continue outer;
+      }
+      const row = arena.splice(y, 1)[0].fill(0);
+      arena.unshift(row);
+      ++y;
+      rowCount++;
+    }
+    if (rowCount > 0) {
+      const lineScores = [0, 100, 300, 500, 800];
+      player.score += lineScores[rowCount] * player.level;
+      player.lines += rowCount;
+      player.level = Math.floor(player.lines / 10) + 1;
+      dropInterval = Math.max(100, 1000 - (player.level - 1) * 80);
+      updateScore();
+    }
+  }
+
+  function playerDrop() {
+    player.pos.y++;
+    if (collide(arena, player)) {
+      player.pos.y--;
+      merge(arena, player);
+      playerReset();
+      arenaSweep();
+    }
+    dropCounter = 0;
+  }
+
+  function playerHardDrop() {
+    while (!collide(arena, player)) {
+      player.pos.y++;
+    }
+    player.pos.y--;
+    merge(arena, player);
+    playerReset();
+    arenaSweep();
+    dropCounter = 0;
+  }
+
+  function playerMove(offset) {
+    player.pos.x += offset;
+    if (collide(arena, player)) {
+      player.pos.x -= offset;
+    }
+  }
+
+  function playerReset() {
+    if (!player.nextMatrix) {
+      player.nextMatrix = getRandomPiece();
+    }
+    player.matrix = player.nextMatrix;
+    player.nextMatrix = getRandomPiece();
+    player.pos.y = 0;
+    player.pos.x = Math.floor(arena[0].length / 2) - Math.floor(player.matrix[0].length / 2);
+
+    if (collide(arena, player)) {
+      isGameOver = true;
+      isRunning = false;
+      showGameOverModal();
+    }
+    drawNext();
+  }
+
+  function drawMatrix(matrix, offset, ctx) {
+    matrix.forEach((row, y) => {
+      row.forEach((value, x) => {
+        if (value !== 0) {
+          ctx.fillStyle = COLORS[value];
+          ctx.fillRect(x + offset.x, y + offset.y, 1, 1);
+          ctx.lineWidth = 0.05;
+          ctx.strokeStyle = '#000';
+          ctx.strokeRect(x + offset.x, y + offset.y, 1, 1);
+        }
+      });
+    });
+  }
+
+  function getGhostPosition() {
+    const ghost = {
+      pos: { x: player.pos.x, y: player.pos.y },
+      matrix: player.matrix
+    };
+    while (!collide(arena, ghost)) {
+      ghost.pos.y++;
+    }
+    ghost.pos.y--;
+    return ghost.pos;
+  }
+
+  function drawGhost() {
+    const ghostPos = getGhostPosition();
+    context.globalAlpha = 0.25;
+    drawMatrix(player.matrix, ghostPos, context);
+    context.globalAlpha = 1.0;
+  }
+
+  function drawNext() {
+    nextContext.fillStyle = '#121218';
+    nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+    if (player.nextMatrix) {
+      const offsetX = (4 - player.nextMatrix[0].length) / 2;
+      const offsetY = (4 - player.nextMatrix.length) / 2;
+      drawMatrix(player.nextMatrix, {x: offsetX, y: offsetY}, nextContext);
+    }
+  }
+
+  function draw() {
+    context.fillStyle = '#0d0d12';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    drawMatrix(arena, {x: 0, y: 0}, context);
+    if (player.matrix && isRunning) {
+      drawGhost();
+      drawMatrix(player.matrix, player.pos, context);
+    }
+
+    if (isPaused) {
+      context.fillStyle = 'rgba(0, 0, 0, 0.75)';
+      context.fillRect(0, 0, 10, 20);
+      context.fillStyle = '#00f0ff';
+      context.font = '1.3px sans-serif';
+      context.textAlign = 'center';
+      context.fillText('PAUSED', 5, 10.5);
+    }
+  }
+
+  function update(time = 0) {
+    if (!isRunning || isPaused) return;
+    const deltaTime = time - lastTime;
+    lastTime = time;
+
+    dropCounter += deltaTime;
+    if (dropCounter > dropInterval) {
+      playerDrop();
+    }
+
+    draw();
+    requestAnimationFrame(update);
+  }
+
+  function updateScore() {
+    document.getElementById('score').innerText = player.score;
+    document.getElementById('level').innerText = player.level;
+  }
+
+  function startGame() {
+    document.getElementById('game-over-modal').classList.add('hidden');
+    arena.forEach(row => row.fill(0));
+    player.score = 0;
+    player.lines = 0;
+    player.level = 1;
+    dropInterval = 1000;
+    isGameOver = false;
+    isPaused = false;
+    isRunning = true;
+    
+    // Clear 7-bag on fresh start
+    pieceBag = [];
+    player.nextMatrix = null;
+
+    updateScore();
+    updateBestScoreDisplay();
+    playerReset();
+    lastTime = performance.now();
+    
+    resetMusic();
+    playMusic();
+
+    update();
+    document.getElementById('start-btn').innerText = 'Restart';
+  }
+
+  function quitGame() {
+    isRunning = false;
+    isPaused = false;
+    isGameOver = false;
+    pieceBag = [];
+
+    resetMusic();
+
+    try {
+      window.close();
+    } catch(e) {}
+
+    setTimeout(() => {
+      document.body.innerHTML = `
+        <div style="text-align: center; font-family: sans-serif; color: #fff;">
+          <h1 style="font-size: 36px; color: #ff0055; margin-bottom: 10px;">GAME EXITED</h1>
+          <p style="color: #aaa; font-size: 16px; margin-bottom: 20px;">You have quit the game. You can now close this browser tab.</p>
+          <button onclick="location.reload()" style="background: #00f0ff; color: #121218; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer;">Re-open Tetris</button>
+        </div>
+      `;
+    }, 100);
+  }
+
+  // Volume slider event handler
+  volumeSlider.addEventListener('input', (e) => {
+    const val = parseFloat(e.target.value);
+    bgMusic.volume = val;
+    
+    const displayVal = val < 0.01 && val > 0 ? 1 : Math.round(val * 100);
+    volumeVal.innerText = `${displayVal}%`;
+    
+    const muteBtn = document.getElementById('mute-btn');
+    if (val === 0) {
+      isMuted = true;
+      muteBtn.innerText = '🔇 Sound: OFF';
+    } else if (isMuted) {
+      isMuted = false;
+      muteBtn.innerText = '🔊 Sound: ON';
+      if (isRunning && !isPaused) playMusic();
+    }
+  });
+
+  document.getElementById('start-btn').addEventListener('click', function() {
+    startGame();
+    this.blur();
+  });
+
+  document.getElementById('quit-btn').addEventListener('click', function() {
+    quitGame();
+    this.blur();
+  });
+
+  document.getElementById('modal-restart-btn').addEventListener('click', function() {
+    startGame();
+    this.blur();
+  });
+
+  document.getElementById('mute-btn').addEventListener('click', function() {
+    isMuted = !isMuted;
+    if (isMuted) {
+      pauseMusic();
+      this.innerText = '🔇 Sound: OFF';
+    } else {
+      this.innerText = '🔊 Sound: ON';
+      if (volumeSlider.value === '0') {
+        volumeSlider.value = '0.01';
+        bgMusic.volume = 0.01;
+        volumeVal.innerText = '1%';
+      }
+      if (isRunning && !isPaused) playMusic();
+    }
+    this.blur();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (!isRunning || isGameOver) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      togglePause();
+      return;
+    }
+
+    if (isPaused) return;
+
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(event.key)) {
+      event.preventDefault();
+    }
+
+    if (event.key === 'ArrowLeft' || event.key === 'a') playerMove(-1);
+    else if (event.key === 'ArrowRight' || event.key === 'd') playerMove(1);
+    else if (event.key === 'ArrowDown' || event.key === 's') playerDrop();
+    else if (event.key === 'ArrowUp' || event.key === 'w') playerRotate(1);
+    else if (event.key === ' ') playerHardDrop();
+  });
+
+  updateBestScoreDisplay();
+  draw();
+</script>
+</body>
+</html>
