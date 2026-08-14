@@ -32,6 +32,7 @@
       border: 2px solid #333;
       background-color: #0d0d12;
       border-radius: 4px;
+      display: block;
     }
     .sidebar {
       display: flex;
@@ -57,6 +58,9 @@
       font-size: 22px;
       font-weight: bold;
       color: #00f0ff;
+    }
+    #next {
+      margin: 0 auto;
     }
     .button-group {
       display: flex;
@@ -227,13 +231,13 @@
 <audio id="bg-music" src="Tetrismusic.m4a" loop></audio>
 
 <div class="game-container">
-  <canvas id="tetris" width="200" height="400"></canvas>
+  <canvas id="tetris" width="240" height="480"></canvas>
   
   <div class="sidebar">
     <div>
       <div class="info-box">
         <h3>Next</h3>
-        <canvas id="next" width="80" height="80"></canvas>
+        <canvas id="next" width="96" height="96"></canvas>
       </div>
       <div class="info-box">
         <h3>Score</h3>
@@ -299,8 +303,9 @@
   // Default volume to 1% (0.01)
   bgMusic.volume = 0.01;
 
-  context.scale(20, 20);
-  nextContext.scale(20, 20);
+  // Scale contexts to 24px per grid unit
+  context.scale(24, 24);
+  nextContext.scale(24, 24);
 
   const COLORS = [
     null,
@@ -313,6 +318,7 @@
     '#ff0000'  // Z - Red
   ];
 
+  // Standard initial orientations for SRS Tetris
   const SHAPES = [
     [],
     [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], // I
@@ -349,12 +355,15 @@
   let isPaused = false;
   let isMuted = false;
 
+  // 1-Second Lock Delay state variables
+  let lockCounter = 0;
+  const LOCK_DELAY = 1000; // 1 second buffer (1000ms)
+
   // 7-Bag Randomizer State
   let pieceBag = [];
 
   function generate7Bag() {
     const bag = [1, 2, 3, 4, 5, 6, 7];
-    // Fisher-Yates shuffle
     for (let i = bag.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [bag[i], bag[j]] = [bag[j], bag[i]];
@@ -367,7 +376,8 @@
       pieceBag = generate7Bag();
     }
     const type = pieceBag.pop();
-    return SHAPES[type];
+    // Deep copy matrix to avoid mutating SHAPES master array
+    return SHAPES[type].map(row => [...row]);
   }
 
   function playMusic() {
@@ -467,6 +477,14 @@
     return false;
   }
 
+  // Checks if the piece is resting on a surface below
+  function isGrounded() {
+    player.pos.y++;
+    const grounded = collide(arena, player);
+    player.pos.y--;
+    return grounded;
+  }
+
   function merge(arena, player) {
     player.matrix.forEach((row, y) => {
       row.forEach((value, x) => {
@@ -475,6 +493,15 @@
         }
       });
     });
+  }
+
+  // Solidifies the piece into grid and spawns the next one
+  function lockPiece() {
+    merge(arena, player);
+    playerReset();
+    arenaSweep();
+    lockCounter = 0;
+    dropCounter = 0;
   }
 
   function rotate(matrix, dir) {
@@ -488,6 +515,7 @@
   }
 
   function playerRotate(dir) {
+    const oldY = player.pos.y;
     const pos = player.pos.x;
     let offset = 1;
     rotate(player.matrix, dir);
@@ -499,6 +527,10 @@
         player.pos.x = pos;
         return;
       }
+    }
+    // Only reset lock counter if rotation changed the Y altitude (wall-kick/step up)
+    if (player.pos.y !== oldY) {
+      lockCounter = 0;
     }
   }
 
@@ -523,26 +555,21 @@
     }
   }
 
+  // Soft drop (Down arrow)
   function playerDrop() {
-    player.pos.y++;
-    if (collide(arena, player)) {
-      player.pos.y--;
-      merge(arena, player);
-      playerReset();
-      arenaSweep();
+    if (!isGrounded()) {
+      player.pos.y++;
     }
     dropCounter = 0;
   }
 
+  // Forced Down / Hard drop (Spacebar) -> bypasses lock delay
   function playerHardDrop() {
     while (!collide(arena, player)) {
       player.pos.y++;
     }
     player.pos.y--;
-    merge(arena, player);
-    playerReset();
-    arenaSweep();
-    dropCounter = 0;
+    lockPiece();
   }
 
   function playerMove(offset) {
@@ -550,6 +577,8 @@
     if (collide(arena, player)) {
       player.pos.x -= offset;
     }
+    // Note: Horizontal movement without changing Y altitude does NOT reset lockCounter.
+    // If piece slides off a ledge, isGrounded() becomes false in update() and resets timer.
   }
 
   function playerReset() {
@@ -560,6 +589,7 @@
     player.nextMatrix = getRandomPiece();
     player.pos.y = 0;
     player.pos.x = Math.floor(arena[0].length / 2) - Math.floor(player.matrix[0].length / 2);
+    lockCounter = 0;
 
     if (collide(arena, player)) {
       isGameOver = true;
@@ -569,15 +599,43 @@
     drawNext();
   }
 
+  function drawGrid(ctx, cols, rows) {
+    ctx.strokeStyle = '#181822';
+    ctx.lineWidth = 0.04;
+    for (let x = 0; x <= cols; x++) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, rows);
+      ctx.stroke();
+    }
+    for (let y = 0; y <= rows; y++) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(cols, y);
+      ctx.stroke();
+    }
+  }
+
   function drawMatrix(matrix, offset, ctx) {
+    const pad = 0.05;
     matrix.forEach((row, y) => {
       row.forEach((value, x) => {
         if (value !== 0) {
+          const rx = x + offset.x + pad;
+          const ry = y + offset.y + pad;
+          const rw = 1 - (pad * 2);
+          const rh = 1 - (pad * 2);
+
           ctx.fillStyle = COLORS[value];
-          ctx.fillRect(x + offset.x, y + offset.y, 1, 1);
-          ctx.lineWidth = 0.05;
-          ctx.strokeStyle = '#000';
-          ctx.strokeRect(x + offset.x, y + offset.y, 1, 1);
+          ctx.fillRect(rx, ry, rw, rh);
+
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+          ctx.fillRect(rx, ry, rw, 0.12);
+          ctx.fillRect(rx, ry, 0.12, rh);
+
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+          ctx.fillRect(rx, ry + rh - 0.12, rw, 0.12);
+          ctx.fillRect(rx + rw - 0.12, ry, 0.12, rh);
         }
       });
     });
@@ -604,7 +662,9 @@
 
   function drawNext() {
     nextContext.fillStyle = '#121218';
-    nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+    nextContext.fillRect(0, 0, 4, 4);
+    drawGrid(nextContext, 4, 4);
+
     if (player.nextMatrix) {
       const offsetX = (4 - player.nextMatrix[0].length) / 2;
       const offsetY = (4 - player.nextMatrix.length) / 2;
@@ -614,9 +674,11 @@
 
   function draw() {
     context.fillStyle = '#0d0d12';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 0, 10, 20);
 
+    drawGrid(context, 10, 20);
     drawMatrix(arena, {x: 0, y: 0}, context);
+
     if (player.matrix && isRunning) {
       drawGhost();
       drawMatrix(player.matrix, player.pos, context);
@@ -637,9 +699,23 @@
     const deltaTime = time - lastTime;
     lastTime = time;
 
+    // Gravity ticker
     dropCounter += deltaTime;
     if (dropCounter > dropInterval) {
-      playerDrop();
+      if (!isGrounded()) {
+        player.pos.y++;
+      }
+      dropCounter = 0;
+    }
+
+    // 1-Second Lock Delay Ticker
+    if (isGrounded()) {
+      lockCounter += deltaTime;
+      if (lockCounter >= LOCK_DELAY) {
+        lockPiece();
+      }
+    } else {
+      lockCounter = 0; // Reset when in freefall
     }
 
     draw();
@@ -662,9 +738,9 @@
     isPaused = false;
     isRunning = true;
     
-    // Clear 7-bag on fresh start
     pieceBag = [];
     player.nextMatrix = null;
+    lockCounter = 0;
 
     updateScore();
     updateBestScoreDisplay();
@@ -683,6 +759,7 @@
     isPaused = false;
     isGameOver = false;
     pieceBag = [];
+    lockCounter = 0;
 
     resetMusic();
 
@@ -701,7 +778,6 @@
     }, 100);
   }
 
-  // Volume slider event handler
   volumeSlider.addEventListener('input', (e) => {
     const val = parseFloat(e.target.value);
     bgMusic.volume = val;
