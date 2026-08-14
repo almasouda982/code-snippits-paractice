@@ -426,6 +426,7 @@
 <!-- AUDIO FILES -->
 <audio id="menu-music" src="audio/Music/MainMenu.m4a" loop></audio>
 <audio id="bg-music" src="audio/Music/Tetrismusic.m4a" loop></audio>
+<audio id="sfx-land" src="audio/Sounds/Land.m4a"></audio>
 <audio id="sfx-line" src="audio/Sounds/1-3Lines.m4a"></audio>
 <audio id="sfx-tetris" src="audio/Sounds/4Lines.m4a"></audio>
 
@@ -612,6 +613,7 @@
   
   const menuMusic = document.getElementById('menu-music');
   const bgMusic = document.getElementById('bg-music');
+  const sfxLand = document.getElementById('sfx-land');
   const sfxLine = document.getElementById('sfx-line');
   const sfxTetris = document.getElementById('sfx-tetris');
 
@@ -688,6 +690,7 @@
 
     menuMusic.volume = effectiveMenuVol;
     bgMusic.volume = effectiveGameVol;
+    sfxLand.volume = effectiveSfxVol;
     sfxLine.volume = effectiveSfxVol;
     sfxTetris.volume = effectiveSfxVol;
 
@@ -867,8 +870,8 @@
 
   function lockPiece() {
     merge(arena, player);
-    playerReset();
     arenaSweep();
+    playerReset();
     lockCounter = 0;
     dropCounter = 0;
   }
@@ -927,6 +930,9 @@
       player.level = Math.floor(player.lines / 10);
       dropInterval = Math.max(80, 1000 - (player.level * 80));
       updateScore();
+    } else {
+      // Play Land SFX when piece lands without making any lines
+      playSfx(sfxLand);
     }
   }
 
