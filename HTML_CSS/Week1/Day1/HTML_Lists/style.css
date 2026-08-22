@@ -1,0 +1,36 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    padding: 40px;
+    line-height: 1.8;
+}
+
+
+
+ol {
+    list-style-type: upper-alpha;
+    padding-left: 30px;
+}
+
+
+ol li{
+    color: #b74a4a;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 30px;
+}
+
+dl dt {
+    font-weight: bold;
+    color: #3c7bb9;
+    margin-top: 10px;
+}
+
+dl dd {
+     margin-left: 20px;
+    color: #b74a4a;
+}
+
