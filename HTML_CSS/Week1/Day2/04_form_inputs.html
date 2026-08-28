@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>أنواع الإدخالات</title>
+</head>
+<body>
+    <h1>أنواع الحقول في النماذج</h1>
+
+    <form>
+
+        <label>تاريخ الميلاد:</label>
+        <input name="date" type="date">
+        <br><br>
+
+        <label>رقم الهاتف:</label>
+        <input name="phone" type="tel">
+        <br><br>
+
+        <label>اللون المفضل:</label>
+        <input name="color" type="color">
+        <br><br>
+
+        <label>الدرجة:</label>
+        <input name="mark" type="range" min="0" max="100">
+        <br><br>
+
+        <label>تحميل ملف:</label>
+        <input name="my_cv" type="file">
+        <br><br>
+
+        <!-- Checkbox -->
+        <label>الهوايات:</label><br>
+        <input type="checkbox" id="reading" name="hobbies" value="Reading">
+        <label for="reading">القراءة</label><br>
+
+        <input type="checkbox" id="sports" name="hobbies" value="Sports">
+        <label for="sports">الرياضة</label><br>
+
+        <input type="checkbox" id="travel" name="hobbies" value="Travel">
+        <label for="travel">السفر</label>
+        <br><br>
+
+        <!-- Radio -->
+        <label>الجنس:</label><br>
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">ذكر</label><br>
+
+        <input type="radio" id="female" name="gender1" value="Female">
+        <label for="female">أنثى</label>
+        <br><br>
+
+        <!-- Select -->
+        <label>اختر القسم:</label>
+        <select name="department">
+            <option value="">-- اختر القسم --</option>
+            <option value="IT">تقنية المعلومات</option>
+            <option value="CS">علوم الحاسب</option>
+            <option value="IS">نظم المعلومات</option>
+            <option value="SE">هندسة البرمجيات</option>
+        </select>
+
+    </form>
+</body>
+</html>

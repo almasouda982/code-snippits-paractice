@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+    <table border="">
+
+        
+        <h1>Student Grades</h1>
+        <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Math</th>
+        <th>Physics</th>
+        <th>Chemistry</th>
+    </tr>
+    
+    <tr>
+        <td>Aziz</td>
+        <td>28</td>
+        <td>A</td>
+        <td colspan="2">A-</td>
+    </tr>
+    
+    <tr>
+        <td>Nicole</td>
+        <td>25</td>
+        <td>A</td>
+        <td>A</td>
+        <td>A</td>
+    </tr>
+        <tr>
+        <td>Kyle</td>
+        <td>26</td>
+        <td>A</td>
+        <td>A</td>
+        <td>B+</td>
+    </tr>
+    
+    <tr>
+        <td>Nick</td>
+        <td>26</td>
+        <td rowspan="2">A</td>
+        <td>B</td>
+        <td>C+</td>
+    </tr>
+    
+    <tr>
+        <td>Matthew</td>
+        <td>20</td>
+        <td>A-</td>
+        <td>B-</td>
+    </tr>
+    </table>
+
+    
+        <form>
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Email Address:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Message:</label><br>
+        <textarea name="message" rows="4" cols="30"></textarea><br><br>
+        <!-- Radio-->
+        <label>Gender:</label><br>
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">Male</label><br>
+
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label>
+        <br><br>
+
+        <label>Nationality</label><br>
+        <select name="department">
+            <option value="">-- Select Nationality --</option>
+            <option value="SA">Saudi Arabia</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="UK">United Kingdom</option>
+        </select><br><br>
+
+
+        <label>Hobbies:</label><br>
+        <input type="checkbox" id="reading" name="hobbies" value="Reading">
+        <label for="reading">Reading</label><br>
+
+        <input type="checkbox" id="sports" name="hobbies" value="Sports">
+        <label for="sports">Sports</label><br>
+
+        <input type="checkbox" id="travel" name="hobbies" value="Travel">
+        <label for="travel">Travel</label>
+        <br><br>
+
+
+        <button type="submit">Submit</button>
+        </form>
+
+
+</body>
+</html>
