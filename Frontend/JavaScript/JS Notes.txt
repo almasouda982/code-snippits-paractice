@@ -1,0 +1,18 @@
+JS Notes:
+
+DOM: Document object model
+innter next
+inner html
+inner  ...
+
+
+Datatypes:
+
+var, const, let
+
+QuerySelector library **
+
+
+
+------------
+task 4 products next to each other using the grid 12 columns (using bootstrap)
