@@ -6,14 +6,56 @@
     <title>Document</title>
 </head>
 <body>
+<h2> task 2 with label and input fields </h2>
+
+
+<label for="name">Enter your name:</label>
+<input type="text" id="name" value="name"><br><br>
+
+
+<label for="age">Enter your age:</label>
+<input type="text" id="age" value="age"><br><br>
+
+
+<label for="email">Enter your email:</label>
+<input type="email" id="email" value="email@email.com"><br><br>
+
+
+<button onclick="ShowName()">Show Name</button>
+<button onclick="ShowAge()">Show Age</button>
+<button onclick="ShowEmail()">Show Email</button>
+<div id="nameOutput"></div>
+<div id="ageOutput"></div>
+<div id="emailOutput"></div>
+
     <script>
-        const name = prompt("Enter your name:");
-        const age = parseInt(prompt("Enter your age:"));
-        var email = prompt("Enter your email:");
 
+        
+    function ShowName()
+        {
 
-        document.write(`<h2>Your name is: ${name} | Your age is ${age} | Your email is ${email}</h2>`);
+            if(age === null){
 
+                document.getElementById("nameOutput").innerText = "Please enter your age first.";
+
+            }
+            else{
+                
+                var name = document.getElementById("name").value;
+                document.getElementById("nameOutput").innerText = `Your name is: ${name}`;
+            }
+        }
+
+    function ShowAge()
+        {
+            var age = document.getElementById("age").value;
+            document.getElementById("ageOutput").innerText = `Your age is: ${age}`;
+        }
+    function ShowEmail()
+        {
+            var email = document.getElementById("email").value;
+            document.getElementById("emailOutput").innerText = `Your email is: ${email}`;
+        }
     </script>
 </body>
 </html>
