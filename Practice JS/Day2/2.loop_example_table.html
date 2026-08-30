@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <style>
+    body{
+    font-family: Arial, Helvetica, sans-serif;
+    transition: background-color 0.4s, color 0.4;
+    padding: 20px;
+    
+    }
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+      width: 300px;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Square</th>
+        </tr>
+    </thead>
+    <tbody id="numberTable"></tbody>
+</table>
+
+<script>
+
+const tableBody = document.getElementById("numberTable");
+
+for(let i = 1; i <= 5; i++){
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${i}</td><td>${i * i}</td>`;
+    tableBody.appendChild(row);
+}
+
+
+</script>
+    
+</body>
+</html>
