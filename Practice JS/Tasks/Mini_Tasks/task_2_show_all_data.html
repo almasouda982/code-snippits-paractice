@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Input for name, age, and email – all values shown together.-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        body {
+            font-family: dark;
+            padding: 30px;
+        }
+        
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+<body style="background-color: darkolivegreen;">
+    <label for="nameinput">Enter your Name</label>
+    <input id="nameinput" type="text" placeholder="example Aziz"><br><br>
+
+    <label for="ageinput">Enter your Age</label>
+    <input id="ageinput" type="number" placeholder="example 18"><br><br>
+
+    <label for="emailinput">Enter your email</label>
+    <input id="emailinput" type="text" placeholder="example example@example.com"><br><br>
+    
+
+    <button id="submitbutton">Find out results</button>
+    <div id="resultname"></div>
+    <div id="resultage"></div>
+    <div id="resultemail"></div>
+
+    <script>
+
+        function findname(){
+
+            var name = document.getElementById("nameinput").value;
+            let resultname = `Your name is ${name}`
+
+            document.getElementById("resultname").innerText = resultname
+        }
+
+        function findage(){
+
+            var age = parseInt(document.getElementById("ageinput").value);
+            let resultage = `Your Age is ${age}`
+
+            document.getElementById("resultage").innerText = resultage
+
+        }
+
+        function findemail(){
+
+            var email = document.getElementById("emailinput").value;
+            let resultemail = `Your email is ${email}`
+
+            document.getElementById("resultemail").innerText = resultemail
+        }
+
+        document.getElementById("submitbutton").addEventListener("click", () =>{
+            findname();
+            findage();
+            findemail();
+        });
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>

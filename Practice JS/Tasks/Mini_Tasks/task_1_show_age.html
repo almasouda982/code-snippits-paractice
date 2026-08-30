@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <style>
+        body {
+            font-family: Arial;
+            padding: 30px;
+        }
+        
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+    </style>
+
+    <!--User inputs their age and it's shown in a message below.-->
+
+    
+    <lable for="userinput">Enter your age: </lable>
+    <input placeholder="example 18" type="number" id="userinput">
+    <button onclick="displayAge()">show result</button>
+    <div id="result" class="output"></div>
+
+    <script>
+
+        function displayAge(){
+            var age = parseInt(document.getElementById("userinput").value);
+            let result = `your age is ${age}`;
+
+            document.getElementById("result").innerText = result;
+        }
+
+
+
+    </script>
+</head>
+<body>
+    
+
+
+
+</body>
+</html>

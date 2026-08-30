@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dom</title>
+        <style>
+        body {
+            font-family: Arial;
+            padding: 30px;
+        }
+        
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+    </style>
+
+
+</head>
+<body>
+
+    
+    <h1>day one</h1>
+    <lable for="userinput">Input Name</lable>
+    <input type ="text" id="userinput">
+    <button onclick="displayInput()">display name</button>
+    <div id="result" class="output"></div>
+    
+    <script>
+    function displayInput(){
+        var name = document.getElementById('userinput').value;
+
+        if(name.trim() === ""){
+            document.getElementById("result").innerText = "please enter your name"
+        }
+        else{
+            document.getElementById("result").innerText = `welcome ${name}`
+        }
+    }    
+    </script>
+</body>
+</html>
