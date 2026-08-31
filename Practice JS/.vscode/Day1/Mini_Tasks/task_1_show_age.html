@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <style>
+    <title>اليوم الأول - المتغيرات وDOM</title>
+    <style>
         body {
             font-family: Arial;
             padding: 30px;
@@ -16,31 +17,42 @@
             border-radius: 5px;
         }
     </style>
+</head>
+<body>
 
-    <!--User inputs their age and it's shown in a message below.-->
-
-    
-    <lable for="userinput">Enter your age: </lable>
-    <input placeholder="example 18" type="number" id="userinput">
-    <button onclick="displayAge()">show result</button>
-    <div id="result" class="output"></div>
+    <label for="ageinput">Whats your age?</label>
+    <input id="ageinput" placeholder="18">
+    <button onclick="showAge()">Show Age</button>
+    <div id="output" class="output"></div>
 
     <script>
 
-        function displayAge(){
-            var age = parseInt(document.getElementById("userinput").value);
-            let result = `your age is ${age}`;
+        function showAge()
+        {
+            var age = document.getElementById("ageinput").value;
+            var print = "";
 
-            document.getElementById("result").innerText = result;
+            if (age >= 18){
+
+                print = `you are ${age}`
+            }
+            else if (age >= 0)
+            {
+                print = `your age is ${age} underage`
+            }
+            else
+            {
+                print = `invalid input`
+            }
+
+            document.getElementById("output").innerText = print;
+
+
         }
 
 
 
     </script>
-</head>
-<body>
-    
-
 
 
 </body>

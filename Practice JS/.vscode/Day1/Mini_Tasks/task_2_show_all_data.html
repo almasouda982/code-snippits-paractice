@@ -20,62 +20,59 @@
         }
     </style>
 
+
+
+
 </head>
-<body style="background-color: darkolivegreen;">
-    <label for="nameinput">Enter your Name</label>
-    <input id="nameinput" type="text" placeholder="example Aziz"><br><br>
-
-    <label for="ageinput">Enter your Age</label>
-    <input id="ageinput" type="number" placeholder="example 18"><br><br>
-
-    <label for="emailinput">Enter your email</label>
-    <input id="emailinput" type="text" placeholder="example example@example.com"><br><br>
+    <label for="nameinput">Enter your name</label>
+    <input id="nameinput"><br><br>
     
+    <label for="ageinput">Enter your age</label>
+    <input id="ageinput"><br><br>
+    
+    <lable for="emailinput">Enter your email</lable>
+    <input id="emailinput" type="email"><br><br>
+    
+    
+    <button id="outputbtn">Print All</button>
+    <div id="output" class="output"></div>
 
-    <button id="submitbutton">Find out results</button>
-    <div id="resultname"></div>
-    <div id="resultage"></div>
-    <div id="resultemail"></div>
-
-    <script>
-
-        function findname(){
-
+    
+     <script>
+        function Nameinput()
+        {
             var name = document.getElementById("nameinput").value;
-            let resultname = `Your name is ${name}`
-
-            document.getElementById("resultname").innerText = resultname
+            document.getElementById("output").innerText += `your name is ${name} |`
         }
 
-        function findage(){
+        function Ageinput()
+        {
+            var age = document.getElementById("ageinput").value;
+            document.getElementById("output").innerText += `your age is ${age} |`
+        }
 
-            var age = parseInt(document.getElementById("ageinput").value);
-            let resultage = `Your Age is ${age}`
+        function Emailinput()
+        {
 
-            document.getElementById("resultage").innerText = resultage
+            var email = document.getElementById("emailinput").value
+            document.getElementById("output").innerText += `your email is ${email} |`
 
         }
 
-        function findemail(){
+        document.getElementById("outputbtn").addEventListener("click", () =>{
+            document.getElementById("output").innerText = ""
+            Nameinput();
+            Ageinput();
+            Emailinput();
 
-            var email = document.getElementById("emailinput").value;
-            let resultemail = `Your email is ${email}`
 
-            document.getElementById("resultemail").innerText = resultemail
-        }
-
-        document.getElementById("submitbutton").addEventListener("click", () =>{
-            findname();
-            findage();
-            findemail();
         });
 
 
 
 
 
-    </script>
-
+     </script>
 
 
 </body>
