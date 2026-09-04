@@ -10,15 +10,23 @@
     <p>Remaining characters: <span id="charCount">100</span></p>
 
     <script>
-
-        
-        document.getElementById("textArea").addEventListener("input", function() {
+        // document.getElementById("textArea").addEventListener("input", function() {
             
+        //     var char = document.getElementById("charCount").value;
+        //     var text = document.getElementById("textArea").value;
+        //     var rem = 100 - text.length;
+        //     document.getElementById("charCount").textContent = rem;
+        // });
+        
+        document.getElementById("textArea").addEventListener("keyup", function(){
             var char = document.getElementById("charCount").value;
             var text = document.getElementById("textArea").value;
             var rem = 100 - text.length;
             document.getElementById("charCount").textContent = rem;
         });
+
+
+
 
 
 
