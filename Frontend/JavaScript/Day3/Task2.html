@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Form Validation</title>
+</head>
+<body>
+    <h2>Task 2: Form Validation</h2>
+    <form id="myForm">
+        <input type="text" id="name" placeholder="Name"><br>
+        <input type="email" id="email" placeholder="Email"><br>
+        <input type="tel" id="phone" placeholder="Phone"><br>
+        <button type="submit">Submit</button>
+        <p id="errorMsg" style="color:red;"></p>
+    </form>
+
+
+    <script>
+
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var errorMsg = document.getElementById("errorMsg").value;
+
+
+        document.getElementById("myForm").addEventListener("submit", function(e){
+            e.preventDefault();
+            if(!name || !email || !phone){
+                errorMsg.innerText = "Enter All information please.";
+            }
+            else{
+                errorMsg.innerText = "";
+                alert("Form submitted successfully!");
+            }
+
+
+        });
+
+
+    </script>
+
+
+
+
+
+</body>
+</html>
+
+
+

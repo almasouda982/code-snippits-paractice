@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>compute_Salary</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+  <div class="container py-4" style="max-width: 480px;">
+ <a href="index.html" class="btn btn-link px-0">&larr; Back</a>
+    <h2>compute_Salary</h2>
+    <p class="text-secondary">annual = monthly × 12</p>
+
+    <div class="mb-3">
+      <label class="form-label">Employee name</label>
+      <input id="name" class="form-control" value="Omar" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">mark</label>
+      <input id="mark" type="number" class="form-control" value="50" />
+    </div>
+        <div class="mb-3">
+      <label class="form-label">fullMark</label>
+      <input id="fullMark" type="number" class="form-control" value="100" />
+    </div>
+    <button id="btn"  class="btn btn-primary">Compute Grade</button>
+    <div id="out" class="alert alert-info mt-3 d-none"></div>
+  </div>
+      
+  <script>
+    document.getElementById("btn").onclick = function () {
+      var name = document.getElementById("name").value;
+      var mark= Number(document.getElementById("mark").value);
+      var fullMark= Number(document.getElementById("fullMark").value);
+
+      var PCT = (mark / fullMark) * 100;
+      var band;
+      if (PCT >= 85) band = "High Grade";
+      else if (PCT >= 75) band = "very Good Grade";
+      else if (PCT >= 65) band = "Good grade";
+      else if (PCT >= 50) band = "You Passed";
+      else band = "Bad Grade";
+
+      var out = document.getElementById("out");
+      out.classList.remove("d-none");
+      out.innerHTML = `
+      <tr>
+      <th>Name</th>
+      <th>Mark</th>
+      <th>Full Mark</th>
+      <th>Result</th>
+      </tr>
+    <tr>
+      <tr>${name}</tr>
+      <tr>${mark}</tr>
+      <tr>${fullMark}</tr>
+      <tr>${band}</tr>
+      </tr>
+    };
+    `
+    }
+    //var pct = (mark / full) * 100;
+    
+    //var pct = (mark / full) * 100;
+    
+    
+    
+            //static void Main(string[] args)
+            //{
+            //    //    // name Mohammed Alswafy
+            //    //    // mark 35
+            //    //    // fullmark 50
+    
+            //    //    //percentage = mark / fullmark * 100
+    
+            //    //    // print name and percentage
+    
+            //    //    //double.parse
+    
+    
+            //    Console.Write("Enter the Name ");
+            //    string name = Console.ReadLine();
+            //    Console.WriteLine();
+            //    Console.Write("Enter the mark ");
+            //    double mark = double.Parse(Console.ReadLine());
+            //    Console.WriteLine();
+            //    Console.Write("Enter the full mark ");
+            //    double fullMark = double.Parse(Console.ReadLine());
+    
+            //    double percentage = (mark / fullMark) * 100;
+    
+            //    Console.WriteLine();
+    
+            //    Console.WriteLine($"{name}'s Calculated Percentage is:  {percentage}%");
+    
+            //    Console.WriteLine();
+    
+            //    if (percentage >= 85)
+            //    {
+            //        Console.WriteLine($"{name}'s Calculated Percentage is:  {percentage}% Excellent grade!");
+            //    }
+            //    else if (percentage >= 75)
+            //    {
+            //        Console.WriteLine($"{name}'s Calculated Percentage is:  {percentage}% Very good Grade!");
+    
+            //    }
+            //    else if (percentage >= 65)
+            //    {
+            //        Console.WriteLine($"{name}'s Calculated Percentage is:  {percentage}% Good Grade!");
+            //    }
+            //    else if (percentage >= 50)
+            //    {
+            //        Console.WriteLine($"{name}'s Calculated Percentage is:  {percentage}% you passed");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"{name}'s Calculated Percentage is:  {percentage}% you failed :( ");
+            //    }
+    
+    
+    
+    
+    
+    
+
+  </script>    
+</body>
+</html>
+
