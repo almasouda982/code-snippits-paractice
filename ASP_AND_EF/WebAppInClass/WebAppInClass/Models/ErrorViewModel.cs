@@ -1,4 +1,4 @@
-namespace Bootcamp_MVC_EF.Models
+namespace WebAppInClass.Models
 {
     public class ErrorViewModel
     {

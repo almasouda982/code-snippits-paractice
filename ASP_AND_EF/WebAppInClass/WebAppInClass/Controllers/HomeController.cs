@@ -1,8 +1,8 @@
-using System.Diagnostics;
-using Bootcamp_MVC_EF.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using WebAppInClass.Models;
 
-namespace Bootcamp_MVC_EF.Controllers
+namespace WebAppInClass.Controllers
 {
     public class HomeController : Controller
     {
