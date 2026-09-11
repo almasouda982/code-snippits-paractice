@@ -16,13 +16,13 @@ ASP.NET CORE EF
 
 
 
-(3) steps
+(3) steps **done only once**
 
 \-----------
 
 1- install libraries (Core, SqlServer, Tools)
 
-2- create the DbContext file inside its directory (Data)
+2- Create the DbContext file inside its directory (Data)
 
 3- Connection string via appsettings.json
 
@@ -41,4 +41,14 @@ Migration
 add-migration `message`
 
 update-database
+
+
+
+
+
+\------
+
+
+
+DI: Dependency Injection
 
