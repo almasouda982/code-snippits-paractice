@@ -12,3 +12,10 @@ ASP.NET CORE EF
 1- install libraries (Core, SqlServer, Tools)
 2- create the DbContext file inside its directory (Data)
 3- Connection string via appsettings.json
+--------
+
+Migration
+
+Tools -> NuGet Package Manager -> Package Manager Console
+add-migration `message`
+update-database
