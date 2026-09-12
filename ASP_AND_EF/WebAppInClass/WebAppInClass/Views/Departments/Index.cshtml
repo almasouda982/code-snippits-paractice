@@ -5,7 +5,7 @@
     <h1>Departments</h1>
 
     <div class="text-end">
-        <a asp-action="Create" class="btn btn-primary">New </a>
+        <a asp-action="Create" class="btn btn-primary">New Department</a>
     </div>
 
     <table class="table table-striped">
@@ -13,6 +13,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Actions</th>
 
             </tr>
         </thead>
@@ -23,6 +24,10 @@
                 <tr>
                     <td>@emp.Id</td>
                     <td>@emp.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@emp.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@emp.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
 
                 </tr>
 

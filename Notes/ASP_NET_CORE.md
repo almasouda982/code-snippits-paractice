@@ -58,3 +58,9 @@ DI: Dependency Injection
 
 HTML helper vs Tag Helper
 
+\-----
+
+CRUD Operation:
+
+Create, Read, Update, Delete
+

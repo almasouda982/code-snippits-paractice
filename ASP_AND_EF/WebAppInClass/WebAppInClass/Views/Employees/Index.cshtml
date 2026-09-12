@@ -13,6 +13,7 @@
 				<th>Name</th>
 				<th>Position</th>
 				<th>Salary</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,6 +24,11 @@
 					<td>@employee.Name</td>
 					<td>@employee.Position</td>
 					<td>@employee.Salary</td>
+					<td>
+						<a asp-action="Edit" asp-route-Id="@employee.Id" class="btn btn-warning"> Edit  </a>
+
+						<a asp-action="Delete" asp-route-Id="@employee.Id" class="btn btn-danger"> Delete  </a>
+					</td>
 
 
 				</tr>

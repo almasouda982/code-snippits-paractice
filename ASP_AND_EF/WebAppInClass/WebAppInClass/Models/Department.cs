@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAppInClass.Models
 {
@@ -6,6 +7,8 @@ namespace WebAppInClass.Models
     {
         [Key]
         public int Id { get; set; }
+        [DisplayName("Department Name")]
+        [Required(ErrorMessage = "Department Name is required")]
         public string Name { get; set; }
     }
 }
