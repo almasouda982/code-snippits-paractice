@@ -18,6 +18,23 @@ namespace WebAppInClass.Controllers
             IEnumerable<Employee> employees = _db.Employees.ToList();
             return View(employees);
         }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Employee employee)
+        {
+            if(ModelState.IsValid)
+            {
+                _db.Employees.Add(employee);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(employee);
+        }
         //public IActionResult Index()
         //{ 
         //    IList<Employee> employees = new List<Employee>

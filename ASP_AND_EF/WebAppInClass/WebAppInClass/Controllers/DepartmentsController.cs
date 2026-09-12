@@ -18,5 +18,21 @@ namespace WebAppInClass.Controllers
             IEnumerable<Department> departments = _db.Departments.ToList();
             return View(departments);
         }
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Department department)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(department);
+            }
+            _db.Departments.Add(department);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
