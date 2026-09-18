@@ -11,8 +11,8 @@ using WebAppInClass.Data;
 namespace WebAppInClass.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260911143819_newTable")]
-    partial class newTable
+    [Migration("20260918133533_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

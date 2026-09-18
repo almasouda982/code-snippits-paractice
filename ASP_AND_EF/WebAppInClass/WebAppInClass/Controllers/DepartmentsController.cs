@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using WebAppInClass.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using WebAppInClass.Data;
 using WebAppInClass.Models;
@@ -27,7 +28,7 @@ namespace WebAppInClass.Controllers
         [HttpPost]
         public ActionResult Create(Department department)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Invalid data. Please check the input fields.");
                 return View(department);
