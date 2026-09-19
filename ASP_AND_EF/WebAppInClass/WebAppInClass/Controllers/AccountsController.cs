@@ -8,5 +8,19 @@ namespace WebAppInClass.Controllers
         {
             return View();
         }
+
+        
+
+        [HttpPost]
+        public IActionResult LoginConfirm(string email , string password)
+        {
+            if(email=="m@gmail.com" && password=="12345")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("Login");
+        }
+
     }
 }
