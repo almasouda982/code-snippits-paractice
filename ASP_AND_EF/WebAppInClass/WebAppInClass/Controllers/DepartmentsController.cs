@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using WebAppInClass.Data;
 using WebAppInClass.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAppInClass.Controllers
 {
+    [Authorize]
     public class DepartmentsController : Controller
     {
         // DI

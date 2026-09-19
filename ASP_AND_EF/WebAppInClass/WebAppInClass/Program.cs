@@ -1,5 +1,6 @@
-using WebAppInClass.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using WebAppInClass.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,17 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(connectionString));
+
+// ================================ 
+// Cookie Authentication 
+// ================================
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => {
+        options.LoginPath = "/Accounts/Login";
+        options.AccessDeniedPath = "/Accounts/AccessDenied";
+    });
+
 
 var app = builder.Build();
 
@@ -28,7 +40,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

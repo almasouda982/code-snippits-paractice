@@ -1,9 +1,12 @@
 ﻿using WebAppInClass.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebAppInClass.Data;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace WebAppInClass.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         // DI
