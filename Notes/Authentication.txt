@@ -1,0 +1,9 @@
+Authentication
+------------------
+
+Cookies:
+- add them inside the authentication method in the controller
+
+Tokens/UID(s)
+- Apply To Models (UTD)
+- 
