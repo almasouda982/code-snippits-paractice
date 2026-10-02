@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using WebAppInClass.Data;
 using WebAppInClass.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAppInClass.Controllers
 {
@@ -18,11 +19,19 @@ namespace WebAppInClass.Controllers
         }
 
 
-        public ActionResult Index()
-        {
+        //public ActionResult Index()
+        //{
 
+        //    //Entity Framework Approach
+        //    IEnumerable<Department> depts = _db.Departments.ToList();
+        //    return View(depts);
+        //}
+
+
+        public async Task<ActionResult> Index()
+        {
             //Entity Framework Approach
-            IEnumerable<Department> depts = _db.Departments.ToList();
+            IEnumerable<Department> depts = await _db.Departments.Include(d=>d.Employees).ToListAsync();
             return View(depts);
         }
 

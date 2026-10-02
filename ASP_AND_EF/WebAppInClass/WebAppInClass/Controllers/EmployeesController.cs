@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAppInClass.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace WebAppInClass.Controllers
@@ -16,9 +17,15 @@ namespace WebAppInClass.Controllers
         {
             _db = db;
         }
-        public IActionResult Index()
-        { 
-            IEnumerable<Employee> employees = _db.Employees.ToList();
+        //public IActionResult Index()
+        //{ 
+        //    IEnumerable<Employee> employees = _db.Employees.ToList();
+        //    return View(employees);
+        //}
+
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<Employee> employees = await _db.Employees.Include(e=>e.Department).ToListAsync();
             return View(employees);
         }
 

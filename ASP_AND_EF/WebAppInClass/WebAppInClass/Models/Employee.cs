@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppInClass.Models
 {
@@ -17,6 +18,10 @@ namespace WebAppInClass.Models
         [DisplayName("Salary Amount")]
         [Required(ErrorMessage = "Salary is required")]
         public decimal Salary { get; set; } = 0;
+
+        //[ForeignKey("Department")]
+        public int DepartmentId { get; set; }
+        public Department? Department { get; set; }
 
     }
 }

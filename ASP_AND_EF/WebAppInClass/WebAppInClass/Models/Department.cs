@@ -12,5 +12,6 @@ namespace WebAppInClass.Models
         [DisplayName("Department Name")]
         [Required(ErrorMessage = "Department Name is required")]
         public string Name { get; set; }
+        public ICollection<Employee>? Employees { get; set; }
     }
 }

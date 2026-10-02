@@ -23,6 +23,12 @@
             <span asp-validation-for="Salary" class="text-danger"></span>
         </div>
         <div class="form-group">
+            <label asp-for="DepartmentId" class="control-label">DepartmentId</label>
+            <input asp-for="DepartmentId" class="form-control" />
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </form>
