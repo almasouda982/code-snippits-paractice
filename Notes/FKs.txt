@@ -1,4 +1,7 @@
 1- name a property after the other table
 2- add the exception on top []
-3- add the relation 
+3- add the relation and:
+ 
 	- public category? category 
+	- collection 
+both the are not included in the migration
