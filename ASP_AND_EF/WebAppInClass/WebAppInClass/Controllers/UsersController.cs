@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebAppInClass.Data;
+﻿using WebAppInClass.Data;
 using WebAppInClass.Models;
 using Microsoft.AspNetCore.Authorization;
-using BCrypt.Net;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace WebAppInClass.Controllers
@@ -10,113 +9,146 @@ namespace WebAppInClass.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        // DI
         private readonly AppDbContext _db;
 
         public UsersController(AppDbContext db)
         {
             _db = db;
         }
+
+
+        // =========================
+        // Index
+        // =========================
         public IActionResult Index()
         {
-            IEnumerable<User> users = _db.Users.ToList();
+            var users = _db.Users.ToList();
+
             return View(users);
         }
 
-        //======
-        // Create
-        //======
 
-        [HttpGet]
-        public ActionResult Create()
+        // =========================
+        // Details
+        // =========================
+        public IActionResult Details(int id)
+        {
+            var user = _db.Users.Find(id);
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);
+        }
+
+
+        // =========================
+        // Create GET
+        // =========================
+        public IActionResult Create()
         {
             return View();
         }
+
+
+        // =========================
+        // Create POST
+        // =========================
         [HttpPost]
-        public ActionResult Create(User user)
+        public IActionResult Create(User user)
         {
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Please correct the errors and try again.");
-                return View(user);
+
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+                _db.Users.Add(user);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
-            _db.Users.Add(user);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return View(user);
         }
 
-        //======
-        // Edit
-        //======
-        [HttpGet]
-        public ActionResult Edit(int Id)
+
+        // =========================
+        // Edit GET
+        // =========================
+        public IActionResult Edit(int id)
         {
-            var usr = _db.Users.Find(Id);
-            if (usr == null)
-            {
+            var user = _db.Users.Find(id);
+
+            if (user == null)
                 return NotFound();
-            }
-            return View(usr);
-        }
-        [HttpPost]
-        public ActionResult Edit(User user)
-        {
 
+            return View(user);
+        }
+
+
+        // =========================
+        // Edit POST
+        // =========================
+        [HttpPost]
+        public IActionResult Edit(User user)
+        {
             if (ModelState.IsValid)
             {
                 var oldUser = _db.Users.Find(user.Id);
 
                 if (oldUser == null)
-                {
                     return NotFound();
-                }
-                else
-                {
-                    oldUser.Name = user.Name;
-                    oldUser.UserName = user.UserName;
-                    oldUser.Email = user.Email;
-                    oldUser.IsLocked = user.IsLocked;
-                }
+
+                oldUser.Name = user.Name;
+                oldUser.UserName = user.UserName;
+                oldUser.Email = user.Email;
+                oldUser.IsLocked = user.IsLocked;
+
 
                 if (!string.IsNullOrEmpty(user.Password))
                 {
+
                     oldUser.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                 }
 
-
                 _db.SaveChanges();
-                return RedirectToAction("Index");
 
+                return RedirectToAction("Index");
             }
+
             return View(user);
         }
 
-        //==========
-        // Delete
-        //==========
-        [HttpGet]
-        public ActionResult Delete(int Id)
-        {
-            var usr = _db.Users.Find(Id);
-            if (usr == null)
-            {
-                return NotFound();
-            }
 
-            return View(usr);
+        // =========================
+        // Delete GET
+        // =========================
+        public IActionResult Delete(int id)
+        {
+            var user = _db.Users.Find(id);
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);
         }
 
+
+
+        // POST
         [HttpPost]
-        public ActionResult Delete(User user)
+        [ActionName("Delete")]
+        public IActionResult DeleteConfirm(int id)
         {
+            var user = _db.Users.Find(id);
+
+            if (user == null)
+                return NotFound();
 
             _db.Users.Remove(user);
             _db.SaveChanges();
+
             return RedirectToAction("Index");
-
-
-
         }
     }
 }

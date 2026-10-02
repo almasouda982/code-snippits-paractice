@@ -1,54 +1,58 @@
 ﻿@model User
+
 @{
     ViewData["Title"] = "Create User";
 }
 
-<div class="container">
-    <h1>Create User</h1>
-    <form asp-action="Create" method="post">
-        <div class="alert-danger" asp-validation-summary="All"></div>
-        
-        <div class="form-group">
-            <label class="control-label">Name</label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
+<h1>Create User</h1>
 
-        <div class="form-group">
-            <label class="control-label">User Name</label>
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger"></span>
-        </div>
+<form asp-action="Create" method="post">
 
-        <div class="form-group">
-            <label class="control-label">Email</label>
-            <input asp-for="Email" type="email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label">Password</label>
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <div class="form-check">
-                <input asp-for="IsLocked" class="form-check-input" type="checkbox" />
-                <label asp-for="IsLocked" class="form-check-label"></label>
-            </div>
-            <span asp-validation-for="IsLocked" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </form>
-    <div>
-        <a asp-action="Index">Back to List</a>
+    <div class="mb-3">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"
+              class="text-danger"></span>
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    <div class="mb-3">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName"
+              class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email"></label>
+        <input asp-for="Email"
+               type="email"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password"></label>
+        <input asp-for="Password"
+               type="password"
+               class="form-control" />
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="IsLocked"
+               class="form-check-input" />
+
+        <label asp-for="IsLocked"
+               class="form-check-label">
+            Locked
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Create
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Back
+    </a>
+
+</form>

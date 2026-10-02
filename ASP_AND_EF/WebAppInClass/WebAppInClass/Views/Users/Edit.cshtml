@@ -1,62 +1,66 @@
 ﻿@model User
+
 @{
     ViewData["Title"] = "Edit User";
 }
 
+<h1>Edit User</h1>
 
-<div class="container">
-    <h1>Edit User</h1>
-    <form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post">
 
-        <div class="text-danger" asp-validation-summary="All">
-        </div>
+    <input asp-for="Id" type="hidden" />
 
-        
-        <div class="form-group">
-            <label class="control-label">Name</label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label">User Name</label>
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label">Email</label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label">Password</label>
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <div class="form-check">
-                <input asp-for="IsLocked" class="form-check-input" type="checkbox" />
-                <label asp-for="IsLocked" class="form-check-label"></label>
-            </div>
-            <span asp-validation-for="IsLocked" class="text-danger"></span>
-        </div>
-
-
-        <div class="form-group">
-            <input type="submit" value="Update" class="btn btn-warning" />
-        </div>
-    </form>
-    <div>
-        <a asp-action="Index">Back to List</a>
+    <div class="mb-3">
+        <label asp-for="Name"></label>
+        <input asp-for="Name"
+               class="form-control" />
     </div>
-</div>
 
+    <div class="mb-3">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName"
+               class="form-control" />
+    </div>
 
+    <div class="mb-3">
+        <label asp-for="Email"></label>
+        <input asp-for="Email"
+               type="email"
+               class="form-control" />
+    </div>
 
+    <div class="mb-3">
+        <label>New Password</label>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        <input name="Password"
+               type="password"
+               class="form-control" />
+
+        <small class="text-muted">
+            Leave empty to keep current password
+        </small>
+    </div>
+
+    <div class="form-check mb-3">
+
+        <input asp-for="IsLocked"
+               class="form-check-input" />
+
+        <label asp-for="IsLocked"
+               class="form-check-label">
+            Locked
+        </label>
+
+    </div>
+
+    <button type="submit"
+            class="btn btn-warning">
+        Update
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Back
+    </a>
+
+</form>

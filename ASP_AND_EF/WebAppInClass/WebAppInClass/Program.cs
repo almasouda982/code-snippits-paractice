@@ -9,21 +9,21 @@ builder.Services.AddControllersWithViews();
 
 
 
-// Added the connection string for the database context
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var conectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer(connectionString));
+options.UseSqlServer(conectionString));
 
 // ================================ 
 // Cookie Authentication 
 // ================================
-
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => {
         options.LoginPath = "/Accounts/Login";
-        options.AccessDeniedPath = "/Accounts/AccessDenied";
+        options.AccessDeniedPath = "/Account/AccessDenied";
     });
+
+
 
 
 var app = builder.Build();
@@ -40,6 +40,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

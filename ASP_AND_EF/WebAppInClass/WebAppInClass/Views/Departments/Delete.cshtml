@@ -6,18 +6,16 @@
 
 <div class="container">
     <h1>Delete Department</h1>
-    <form asp-action="Delete" method="post">
 
-       
-
-        <div class="form-group">
-            <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" class="form-control" readonly />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" readonly />
 
             
-        </div>
+    </div>
 
 
+    <form asp-action="Delete" method="post" asp-route-Uuid="@Model.Uuid">
 
         <div class="form-group">
             <input type="submit" value="Delete" class="btn btn-danger" />
@@ -27,6 +25,7 @@
         <a asp-action="Index">Back to List</a>
     </div>
 </div>
+
 
 
 

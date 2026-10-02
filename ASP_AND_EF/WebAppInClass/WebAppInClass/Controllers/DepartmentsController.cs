@@ -10,43 +10,50 @@ namespace WebAppInClass.Controllers
     [Authorize]
     public class DepartmentsController : Controller
     {
-        // DI
+        //DI 
         private readonly AppDbContext _db;
-
         public DepartmentsController(AppDbContext db)
         {
             _db = db;
         }
-        public IActionResult Index()
+
+
+        public ActionResult Index()
         {
-            IEnumerable<Department> departments = _db.Departments.ToList();
-            return View(departments);
+
+            //Entity Framework Approach
+            IEnumerable<Department> depts = _db.Departments.ToList();
+            return View(depts);
         }
+
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(Department department)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Invalid data. Please check the input fields.");
-                return View(department);
+                _db.Departments.Add(department);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            _db.Departments.Add(department);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            ModelState.AddModelError("", "Please fill all the required fields.");
+            return View(department);
+
         }
 
-        //=========
+
+        //===============
         //Edit
-        //========= 
+        //==========================
         [HttpGet]
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(string uuid)
         {
-            var dept = _db.Departments.Find(Id);
+            var dept = _db.Departments.FirstOrDefault(e => e.Uuid == uuid);
             if (dept == null)
             {
                 return NotFound();
@@ -60,7 +67,15 @@ namespace WebAppInClass.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Departments.Update(department);
+                var olddept = _db.Departments.FirstOrDefault(e => e.Uuid == department.Uuid);
+
+                if (olddept == null)
+                    return NotFound();
+
+                olddept.Name = department.Name;
+
+
+                //_db.Departments.Update(department);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,13 +84,14 @@ namespace WebAppInClass.Controllers
 
         }
 
+
         //===============
         //Delete
         //==========================
         [HttpGet]
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(string uuid)
         {
-            var dept = _db.Departments.Find(Id);
+            var dept = _db.Departments.FirstOrDefault(e => e.Uuid == uuid);
             if (dept == null)
             {
                 return NotFound();
@@ -85,14 +101,23 @@ namespace WebAppInClass.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(Department department)
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirm(string uuid)
         {
+            var dept = _db.Departments.FirstOrDefault(e => e.Uuid == uuid);
+            if (dept == null)
+            {
+                return NotFound();
+            }
 
-            _db.Departments.Remove(department);
+            _db.Departments.Remove(dept);
             _db.SaveChanges();
             return RedirectToAction("Index");
 
 
         }
+
+
+
     }
 }
