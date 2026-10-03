@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebAppInClass.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace WebAppInClass.Controllers
@@ -36,6 +37,9 @@ namespace WebAppInClass.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            var departments = _db.Departments.ToList();
+            SelectList selectList = new SelectList(departments, "Id", "Name");
+            ViewBag.Departments = selectList;
             return View();
         }
         [HttpPost]
@@ -62,6 +66,9 @@ namespace WebAppInClass.Controllers
             {
                 return NotFound();
             }
+            var departments = _db.Departments.ToList();
+            SelectList selectList = new SelectList(departments, "Id", "Name");
+            ViewBag.Departments = selectList;
             return View(emp);
         }
         [HttpPost]
