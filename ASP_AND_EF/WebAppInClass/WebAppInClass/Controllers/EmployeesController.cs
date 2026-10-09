@@ -4,6 +4,7 @@ using WebAppInClass.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebAppInClass.Dtos;
 
 
 namespace WebAppInClass.Controllers
@@ -24,90 +25,161 @@ namespace WebAppInClass.Controllers
         //    return View(employees);
         //}
 
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    IEnumerable<Employee> employees = await _db.Employees.Include(e=>e.Department).ToListAsync();
+        //    return View(employees);
+        //}
+
+        public ActionResult Index()
         {
-            IEnumerable<Employee> employees = await _db.Employees.Include(e=>e.Department).ToListAsync();
+            //Entity Framework Approach
+
+            IEnumerable<EmployeeDto> employees = _db.Employees.Select(e => new EmployeeDto
+            {
+                //Mapping the properties of Employee to EmployeeDto
+                Id = e.Id,
+                Name = e.Name,
+                Position = e.Position,
+                Salary = e.Salary,
+                DepartmentName = e.Department != null ? e.Department.Name : null
+            }).ToList();
+
             return View(employees);
         }
 
-        //======
-        // Create
-        //======
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            var departments = _db.Departments.ToList();
-            SelectList selectList = new SelectList(departments, "Id", "Name");
-            ViewBag.Departments = selectList;
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Create(Employee employee)
-        {
-            if(!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Please correct the errors and try again.");
-                return View(employee);
-            }
-                _db.Employees.Add(employee);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-        }
+        //public ActionResult Index()
+        //{
+        //    //Entity Framework Approach
 
-        //======
-        // Edit
-        //======
-        [HttpGet]
-        public ActionResult Edit(int Id)
+        //    IEnumerable<Employee> employees = _db.Employees.Include(e => e.Department).ToList();
+        //    return View(employees);
+        //}
+
+
+        public ActionResult Edit(int? id)
         {
-            var emp = _db.Employees.Find(Id);
-            if (emp == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var departments = _db.Departments.ToList();
-            SelectList selectList = new SelectList(departments, "Id", "Name");
-            ViewBag.Departments = selectList;
-            return View(emp);
-        }
-        [HttpPost]
-        public ActionResult Edit(Employee employee)
-        {
-            if (ModelState.IsValid)
+
+            loadDepartments();
+            var employee = _db.Employees.Find(id);
+            if (employee == null)
             {
-                _db.Employees.Update(employee);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                return NotFound();
             }
-            ModelState.AddModelError("", "Please correct the errors and try again.");
+
             return View(employee);
         }
 
-        //==========
-        // Delete
-        //==========
-        [HttpGet]
-        public ActionResult Delete(int Id)
+        [HttpPost]
+        public ActionResult Edit(EmployeeUpdateDto employeeDTO)
         {
-            var emp = _db.Employees.Find(Id);
-            if (emp == null)
+            if (ModelState.IsValid)
+            {
+                var employee = _db.Employees.Find(employeeDTO.Id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+
+                //Mapping the properties of EmployeeUpdateDto to Employee
+                employee.Name = employeeDTO.Name;
+                employee.Position = employeeDTO.Position;
+                employee.Salary = employeeDTO.Salary;
+                employee.DepartmentId = employeeDTO.DepartmentId;
+
+                //  _db.Employees.Update(employee);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Please fill all the required fields.");
+            loadDepartments();
+            return View(employeeDTO);
+
+        }
+
+
+        private void loadDepartments()
+        {
+            var departments = _db.Departments.ToList();
+            ViewBag.Departments = new SelectList(departments, "Id", "Name");
+        }
+
+
+        public ActionResult Create()
+        {
+            loadDepartments();
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(EmployeeCreateDto employeeDTO)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //Mapping the properties of EmployeeCreateDto to Employee
+                var employee = new Employee
+                {
+                    Name = employeeDTO.Name,
+                    Position = employeeDTO.Position,
+                    Salary = employeeDTO.Salary,
+                    DepartmentId = employeeDTO.DepartmentId
+                };
+
+                _db.Employees.Add(employee);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Please fill all the required fields.");
+            loadDepartments();
+            return View(employeeDTO);
+
+        }
+
+
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return View(emp);
+            var employee = _db.Employees.Find(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
         }
 
         [HttpPost]
-        public ActionResult Delete(Employee employee)
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirm(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = _db.Employees.Find(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
 
             _db.Employees.Remove(employee);
             _db.SaveChanges();
+
             return RedirectToAction("Index");
-
-
         }
 
 
