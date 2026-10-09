@@ -22,6 +22,9 @@ namespace WebAppInClass.Models
         //[ForeignKey("Department")]
         public int DepartmentId { get; set; }
         public Department? Department { get; set; }
+        //public ICollection<Job>? Jobs { get; set; }
 
+        public int JobId { get; set; }
+        public Job? Job { get; set; }
     }
 }

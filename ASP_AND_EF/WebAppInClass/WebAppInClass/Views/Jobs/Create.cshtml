@@ -1,0 +1,52 @@
+﻿@using WebAppInClass.Dtos
+
+@model JobsDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Job</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="EmployeeName" class="control-label">Employee Name</label>
+                <select asp-for="EmployeeName" class="form-control" asp-items="ViewBag.Employees">
+                    <option value="">-- Select Employee --</option>
+                </select>
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="DepartmentName" class="control-label">Department Name</label>
+                <select asp-for="DepartmentName" class="form-control" asp-items="ViewBag.Departments">
+                    <option value="">-- Select Department --</option>
+                </select>
+                <span asp-validation-for="DepartmentName" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

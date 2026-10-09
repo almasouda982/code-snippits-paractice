@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAppInClass.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UsersController : Controller
     {
         private readonly AppDbContext _db;

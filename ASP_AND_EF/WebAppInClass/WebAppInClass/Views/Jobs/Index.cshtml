@@ -1,0 +1,45 @@
+﻿@using WebAppInClass.Dtos
+@model IEnumerable<JobsDto>
+@{
+    ViewData["Title"] = "Jobs Page";
+}
+
+<div class="container">
+
+    <h1>Jobs</h1>
+
+    <div class="text-end">
+        <a asp-action="Create" class="btn btn-primary"> New </a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Employee Name</th>
+                <th>Department Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+
+                <tr>
+                    <td>@emp.Id</td>
+                    <td>@emp.Title</td>
+                    <td>@emp.EmployeeName</td>
+                    <td>@emp.DepartmentName</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@emp.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@emp.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+            }
+
+
+        </tbody>
+
+    </table>
+</div>
