@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAppInClass.Data;
 using WebAppInClass.Repositories;
 using WebAppInClass.Repositories.Base;
+using WebAppInClass.Services.Base;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,11 +25,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Accounts/Login";
         options.AccessDeniedPath = "/Account/AccessDenied";
     });
-
+// repos
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
+builder.Services.AddScoped<IDepartmentRepository,  DepartmentRepository>();
 
+//base repos
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 var app = builder.Build();

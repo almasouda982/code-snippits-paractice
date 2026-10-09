@@ -3,5 +3,8 @@
     public interface IUnitOfWork
     {
         IEmployeeRepository EmployeeRepository { get; }
+        IManagerRepository ManagerRepository { get; }
+        IDepartmentRepository DepartmentRepository { get; }
+
     }
 }
