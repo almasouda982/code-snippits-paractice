@@ -32,10 +32,28 @@ namespace WebAppInClass.Controllers
         }
 
         // GET: CATEGORYS
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _unitOfWork.EmployeeRepository.GetAllEmployeeAsync());
+        //    // return View(await _context.Category.ToListAsync());
+        //}
+
         public async Task<IActionResult> Index()
         {
-            return View(await _unitOfWork.EmployeeRepository.GetAllEmployeeAsync());
-            // return View(await _context.Category.ToListAsync());
+            // 1. Get employees from the repository (assumes this returns IEnumerable<Employee>)
+            var employees = await _unitOfWork.EmployeeRepository.GetAllEmployeeAsync();
+
+            // 2. Map the Employee entities to EmployeeDto
+            var employeeDtos = employees.Select(e => new EmployeeDto
+            {
+                Id = e.Id,
+                Name = e.Name,
+                Position = e.Position,        
+                DepartmentName = e.Department?.Name
+            }).ToList();
+
+            // 3. Pass the list of DTOs to the view
+            return View(employeeDtos);
         }
 
         // GET: CATEGORYS/Details/5
@@ -45,16 +63,16 @@ namespace WebAppInClass.Controllers
             {
                 return NotFound();
             }
-            var category = await _unitOfWork.EmployeeRepository.GetEmployeeByIdAsync(id.Value);
+            var employee = await _unitOfWork.EmployeeRepository.GetEmployeeByIdAsync(id.Value);
 
             //var category = await _context.Category
             //    .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (employee == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(employee);
         }
 
         // GET: CATEGORYS/Create

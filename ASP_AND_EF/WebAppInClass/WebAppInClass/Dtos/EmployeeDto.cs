@@ -9,7 +9,7 @@
 
             public decimal Salary { get; set; }
 
-            public string DepartmentName { get; set; } = string.Empty;
+            public string? DepartmentName { get; set; } = string.Empty;
         }
 
 
