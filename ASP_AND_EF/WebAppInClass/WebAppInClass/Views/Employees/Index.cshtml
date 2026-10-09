@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Employee>
+﻿@using WebAppInClass.Dtos
+@model IEnumerable<EmployeeDto>
 
 <div class="container">
 	<h1>Employees</h1>
@@ -25,7 +26,7 @@
 					<td>@employee.Name</td>
 					<td>@employee.Position</td>
 					<td>@employee.Salary</td>
-					<td>@employee.Department?.Name</td>
+					<td>@employee.DepartmentName</td>
 
 					<td>
 						<a asp-action="Edit" asp-route-Id="@employee.Id" class="btn btn-warning"> Edit  </a>
