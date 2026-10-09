@@ -6,7 +6,7 @@
 
 <div class="container">
 
-    <h1>Employees</h1>
+    <h1>Managers</h1>
 
     <div class="text-end">
         <a asp-action="Create" class="btn btn-primary"> New </a>
@@ -23,18 +23,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var emp in Model)
+            @foreach (var man in Model)
             {
 
                 <tr>
-                    <td>@emp.Id</td>
-                    <td>@emp.Name</td>
-                    <td>@emp.Position</td>
-                    <td>@emp.Salary</td>
-                    <td>@emp.DepartmentName</td>
+                    <td>@man.Id</td>
+                    <td>@man.Name</td>
+                    <td>@man.Position</td>
+                    <td>@man.Salary</td>
+                    <td>@man.DepartmentName</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@emp.Id" class="btn btn-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@emp.Id" class="btn btn-danger">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@man.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@man.Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
 

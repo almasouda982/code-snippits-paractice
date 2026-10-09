@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAppInClass.Data;
 using WebAppInClass.Repositories;
 using WebAppInClass.Repositories.Base;
+using WebAppInClass.Services;
 using WebAppInClass.Services.Base;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,9 +32,10 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IDepartmentRepository,  DepartmentRepository>();
 
+
 //base repos
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddScoped<IManagerService, ManagerService>();
 
 var app = builder.Build();
 

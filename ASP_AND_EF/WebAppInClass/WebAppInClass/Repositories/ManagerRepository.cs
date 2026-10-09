@@ -14,19 +14,19 @@ namespace WebAppInClass.Repositories
         }
         public async Task<IEnumerable<ManagerDto>> GetAllManagersAsync()
         {
-            return await _db.Employees
-                .AsNoTracking()
-                .Select(e => new ManagerDto
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    Position = e.Position,
-                    Salary = e.Salary,
-                    DepartmentName = e.Department != null
-                        ? e.Department.Name
-                        : null
-                })
-                .ToListAsync();
+            return await _db.Managers
+                    .AsNoTracking()
+                    .Select(m => new ManagerDto
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Position = m.Position,
+                        Salary = m.Salary,
+                        DepartmentName = m.Department != null
+                            ? m.Department.Name
+                            : null
+                    })
+                    .ToListAsync();
         }
         public async Task<Manager?> GetManagerByIdAsync(int id)
         {
