@@ -1,0 +1,7 @@
+Notes:
+
+-- In App Development Material APP is the root and the widgets are the leafs
+
+Shortcuts: 
+
+ctrl + space

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '0.scaffoldexample.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,8 +18,10 @@ class MyApp extends StatelessWidget {
 
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold(),
+      home: MyHome(),
     );
   }
 }
+
+
 
