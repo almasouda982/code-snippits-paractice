@@ -5,3 +5,20 @@ Notes:
 Shortcuts: 
 
 ctrl + space
+
+
+
+Stateful vs Stateless
+
+-------------
+
+
+task:
+Home page (page):
+1- Drawer
+2- log in (page)
+3- register (page)
+- both connected
+navigation in the profile page
+
+4- profile with details (form update personal page)

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '0.scaffoldexample.dart';
+import '0.pageexample.dart';
+import 'excersise.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,9 @@ class MyApp extends StatelessWidget {
 
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: MyHome(),
+      home: excersise(),
+      debugShowCheckedModeBanner: false,
+
     );
   }
 }
