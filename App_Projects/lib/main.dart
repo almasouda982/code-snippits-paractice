@@ -1,4 +1,5 @@
 import 'package:firstwebapp/pages/testing.dart';
+import 'package:firstwebapp/pages/testing10.dart';
 import 'package:firstwebapp/pages/testing2.dart';
 import 'package:firstwebapp/pages/testing3.dart';
 import 'package:firstwebapp/pages/testing4.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
 
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: testing9(),
+      home: testing10(),
       debugShowCheckedModeBanner: false,
 
     );

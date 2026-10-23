@@ -22,3 +22,21 @@ Home page (page):
 navigation in the profile page
 
 4- profile with details (form update personal page)
+
+
+
+------------
+difference between stales and staful is
+
+staful = init state, set state
+
+
+-----------
+commands 
+
+flutter run --enable-software-rendering --no-enable-impeller
+dart fix --dry-run
+dart fix --apply
+
+
+"as a parameter"
