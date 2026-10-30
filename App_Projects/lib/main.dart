@@ -4,6 +4,7 @@ import 'package:firstwebapp/pages/testing2.dart';
 import 'package:firstwebapp/pages/testing3.dart';
 import 'package:firstwebapp/pages/testing4.dart';
 import 'package:firstwebapp/pages/testing9.dart';
+import 'package:firstwebapp/proj/loginScreen3.dart';
 import 'package:flutter/material.dart';
 
 import '0.scaffoldexample.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
 
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: testing10(),
+      home: Loginscreen3(),
       debugShowCheckedModeBanner: false,
 
     );
