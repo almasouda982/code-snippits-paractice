@@ -33,6 +33,5 @@ https://medium.com/@baraklagziel/in-memory-vs-distributed-caching-a-comparative-
 - ...
 - adapter
 https://medium.com/@erlandmuchasaj/adapter-design-pattern-eddc3fa6f33d
-<br></br>
 - observe
 - sign to
