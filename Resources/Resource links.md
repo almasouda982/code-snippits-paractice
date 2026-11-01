@@ -1,5 +1,18 @@
 # Links for practice/studying
 
+# Table of Contents
+
+* [1. Indexing Types (revisit)](#1-indexing-types-revisit)
+* [2. Dependancy Injection](#2-dependancy-injection)
+* [3. Entity framework object relational mapping and change tracking](#3-entity-framework-object-relational-mapping-and-change-tracking)
+* [5. Normalization vs Denormalization and (why is normalization needed)](#5-normalization-vs-denormalization-and-why-is-normalization-needed)
+* [6. Domain Driven Design](#6-domain-driven-design)
+* [7. In memory cache vs distributed cache](#7-in-memory-cache-vs-distributed-cache)
+* [8. Design pattern mailing record background job modified at and batch](#8-design-pattern-mailing-record-background-job-modified-at-and-batch)
+* [9. Try-Catch](#9-try-catch)
+* [10. Abstraction](#10-abstraction)
+* [11. Design pattern](#11-design-pattern)
+
 ## 1. Indexing Types (revisit)
 https://www.geeksforgeeks.org/dbms/indexing-in-databases-set-1/
 
@@ -282,10 +295,8 @@ Read-through is a form of lazy-load caching similar to the cache-aside strategy.
 
 ## 8. Design pattern mailing record background job modified at and batch
 
-https://www.geeksforgeeks.org/system-design/software-design-patterns/
 
 
----
 
 
 
@@ -578,7 +589,7 @@ WHERE status = 'processing';
 SELECT COUNT(*) AS zombie_records 
 FROM mailing_records 
 WHERE status = 'processing' 
-  AND modified_at < NOW() - INTERVAL '15 minutes';
+  AND modified_at <br NOW() - INTERVAL '15 minutes';
 Use code with caution.
 
 2. Historical Performance Report (Analytics Framework)
@@ -627,24 +638,125 @@ Key Rules of Catch Block Priority
 
 ## 11. Design pattern 
 
-- Factory
+https://www.geeksforgeeks.org/system-design/software-design-patterns/
+
+
+- what are design patterns?
+
+    reusable solutions to commen software design problems which help devs build cleaner and more maintainable systems so they act as templeates for solving issues related to object creation, structurem and behavior instead of coplete code
+
+1. provides standard terminology and best practice making communicationeasier among developers
+2. helps create structured, scalable, and maintainable code by prooting proven design approaches 
+3. reduces development time by offering ready-made solutions
+
+Charesteristics:
+
+- <b>Reusibility:</b> patterns can be applied to different projects saving time and effort in solving similar issues
+- <b>Standardization:</b> They provied shared language amongs developers 
+- <b>Efficiency</b> by using these patterns developers aviod finding the solution to recurring problems 
+
+- <b>Flexibility</b>: 
+
+Design patterns are a valuable tool in software development, and they offer various benefits and uses, some of them are explained below :
+
+Cross-Platform Support : Design patterns are not tied to a specific programming language or platform. They are general guidelines that can be applied across different technologies, making it easier to adapt your code to different environments.
+
+Improving Scalability: Design patterns, particularly structural patterns, allow us to create a flexible and extensible architecture, making it easier to add new features or components.
+
+Simplifying Complex Problems: Complex software problems can be broken down into smaller, more manageable components using design patterns. This simplifies development by addressing one problem at a time and, in turn, makes the code more maintainable.
+
+Enhancing Collaboration: Design patterns provide a common language and a shared understanding among team members. They enable developers to communicate effectively and collaborate on software projects by referring to well-known design solutions.
+
+Improving Testability: Code designed with patterns in mind is often more modular and easier to test. we can write unit tests for individual components or classes, leading to more reliable and robust software.
+
+Promoting Code Reusability: Design patterns encapsulate solutions to recurring design problems. By using these patterns, we can create reusable templates for solving specific problems in different parts of your application.
+
+Enhancing Maintainability: Design patterns help organize code in a structured and consistent way. This makes it easier to maintain, update, and extend the codebase. Developers familiar with the patterns can quickly understand and work on the code.
+
+---
+
+### Creational Design Patterns
+
+- Factory method and abstract
 
     https://www.geeksforgeeks.org/system-design/factory-method-for-designing-pattern/
 
+    The Factory Method is a creational design pattern that defines an interface for creating objects but lets subclasses decide which object to instantiate. It promotes loose coupling by delegating object creation to a method, making the system more flexible and extensible.
+
+    - Subclasses override the factory method to create specific object types, enabling flexible object creation.
+
+    - Supports easy addition of new product types and improves maintainability and adaptability at runtime.
+
+Real World Applications
+
+    The Factory Method Pattern is widely used in software development to create objects dynamically while keeping the client code independent of their concrete classes.
+
+    - Payment systems: A payment system can create different payment processors such as card, UPI, or wallet processors.
+
+    - Game development: A game can create different enemies, weapons, or items depending on the game level or environment.
+
+    - Document processing: An application can create different document objects such as PDF, Word, or text documents.
+
+    - Notification systems: An application can create Email, SMS, or Push notification objects based on the required notification type.
+
+Components
+
+    The main components of Factory Design Pattern:
+
+    - Creator: This is an abstract class or an interface that declares the factory method. The creator typically contains a method that serves as a factory for creating objects. It may also contain other methods that work with the created objects.
+
+    - Concrete Creator: Concrete Creator classes are subclasses of the Creator that implement the factory method to create specific types of objects. Each Concrete Creator is responsible for creating a particular product.
+
+    - Product: This is the interface or abstract class for the objects that the factory method creates. The Product defines the common interface for all objects that the factory method can create.
+
+    - Concrete Product: Concrete Product classes are the actual objects that the factory method creates. Each Concrete Product class implements the Product interface or extends the Product abstract class.
+
     https://www.geeksforgeeks.org/system-design/abstract-factory-pattern/
+
+- Singleton pattern method
+
+    https://www.geeksforgeeks.org/system-design/singleton-design-pattern/
+
+    
+    The Singleton Design Pattern ensures that a class has only one instance and provides a global access point to it. It is used when we want centralized control of resources, such as managing database connections, configuration settings or logging.
+
+    - Prevents accidental creation of multiple instances and ensures controlled, efficient use of resources like memory and connections.
+    - Simplifies coordination across different parts of the application by providing a single shared instance.
+
+    Real-World Applications
+
+    - Logging Systems : Maintain a consistent logging mechanism across an application.
+    - Configuration Managers : Centralize access to configuration settings.
+    - Database Connections : Manage a single point of database access.
+    - Thread Pools : Efficiently manage a pool of threads for concurrent tasks.
+
+
+
+---
+
+The Abstract Factory Pattern is a creational design pattern that provides an interface for creating families of related or dependent objects without specifying their concrete classes. It acts as a "factory of factories," where a super-factory creates other factories that in turn produce specific objects.
+
+Works around a super-factory that produces multiple factories.
+Concrete factories created at runtime decide the actual product types.
+Useful when the system needs to be independent of how products are created or represented.
+Makes it easy to switch between different groups of related objects without code changes.
+
+---
+
+### Structural Design Patterns
 
 - adapter
     
     https://www.geeksforgeeks.org/system-design/adapter-pattern/
 
     https://medium.com/@erlandmuchasaj/adapter-design-pattern-eddc3fa6f33d
+
+---
+### Behavioral Design Patterns
+
 - observer
 
     https://www.geeksforgeeks.org/system-design/observer-pattern-set-1-introduction/
-
-- Singleton pattern method
-
-    https://www.geeksforgeeks.org/system-design/singleton-design-pattern/
 
 
 
@@ -665,3 +777,5 @@ Key Rules of Catch Block Priority
 [Redis](https://www.geeksforgeeks.org/system-design/introduction-to-redis-server/)
 
 ### OOP and polymorphyosm
+
+https://www.geeksforgeeks.org/cpp/difference-between-inheritance-and-polymorphism/
