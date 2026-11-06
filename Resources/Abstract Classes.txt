@@ -1,0 +1,32 @@
+Abstract vs Interface:
+
+
+Abstract: The class contains properties, constructor, and methods (with and without implementation)
+
+Interface: It contains method only without implementation or an access modifier (public/private) when a child class implements the method its overridden without the keyword
+
+
+Interface perks (3)
+
+1. A method can be implemented on one child only 
+2. Can inherited from multiple interfaces
+
+What's an Abstraction?
+
+Abstract and Interface...
+
+What does abstraction mean? 
+
+It means taking services from classes meaning the are able to be inherited from only
+
+Does an interface act the same with inheritance as abstraction?
+
+the difference is that in abstraction (as before)
+
+the interface is the opposite (as before)
+
+
+
+Important:
+
+in inheritance you can inherit from multiple interfaces in  a class, but with abstraction it can only be one abstraction

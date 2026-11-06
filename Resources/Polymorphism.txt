@@ -1,0 +1,16 @@
+Overloading VS Overriding
+
+ridding: you override a function in the parents
+loading: your overload a function within the same class with the parameters differing in type or position and/or return type differing too
+
+
+What is Polymorphism
+
+
+Overloading And Overriding...
+
+what's the difference?
+
+Overriding... as Previous
+Overloading... as Previous 
+
