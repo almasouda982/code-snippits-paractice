@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fromclass/app/screens/bookScreen.dart';
-import 'package:fromclass/app/screens/courseBookScreen.dart';
-import 'package:fromclass/app/screens/coursePrerequisiteScreen.dart';
-import 'package:fromclass/app/screens/courseSectionScreen.dart';
-import 'package:fromclass/app/screens/coursesScreen.dart';
-import 'package:fromclass/app/screens/degreeProgramScreen.dart';
-import 'package:fromclass/app/screens/degreeRequirementScreen.dart';
-import 'package:fromclass/app/screens/enrollmentScreen.dart';
-import 'package:fromclass/app/screens/studentsScreen.dart';
-import 'package:fromclass/app/screens/waitlistEntryScreen.dart';
+import 'package:fromclass/App2/app/screens/bookScreen.dart';
+import 'package:fromclass/App1/app/screens/courseBookScreen.dart';
+import 'package:fromclass/App2/app/screens/coursePrerequisiteScreen.dart';
+import 'package:fromclass/App2/app/screens/courseSectionScreen.dart';
+import 'package:fromclass/App2/app/screens/coursesScreen.dart';
+import 'package:fromclass/App2/app/screens/degreeProgramScreen.dart';
+import 'package:fromclass/App2/app/screens/degreeRequirementScreen.dart';
+import 'package:fromclass/App2/app/screens/enrollmentScreen.dart';
+import 'package:fromclass/App2/app/screens/studentsScreen.dart';
+import 'package:fromclass/App2/app/screens/waitlistEntryScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen(

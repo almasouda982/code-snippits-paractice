@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:fromclass/data/CourseService.dart';
-import 'detailScreens/courseDetailsScreen.dart';
+import '../../data/courseSectionService.dart';
+import 'detailScreens/courseSectionDetailsScreen.dart';
 
-class CoursesScreen extends StatefulWidget {
-  const CoursesScreen({super.key});
+class CourseSectionScreen extends StatefulWidget {
+  const CourseSectionScreen({super.key});
 
   @override
-  State<CoursesScreen> createState() => _CoursesScreenState();
+  State<CourseSectionScreen> createState() => _CourseSectionScreenState();
 }
 
-class _CoursesScreenState extends State<CoursesScreen> {
-  final CourseService courseService = CourseService();
-  late Future<List<dynamic>> courses;
+class _CourseSectionScreenState extends State<CourseSectionScreen> {
+  final CourseSectionService sectionService = CourseSectionService();
+  late Future<List<dynamic>> courseSections;
 
   @override
   void initState() {
     super.initState();
-    courses = courseService.getCourses();
+    courseSections = sectionService.getCourseSections();
   }
 
   @override
@@ -25,7 +25,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: const Text(
-          'Courses Directory',
+          'Course Sections',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Colors.indigo,
@@ -34,7 +34,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: FutureBuilder<List<dynamic>>(
-        future: courses,
+        future: courseSections,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -51,17 +51,17 @@ class _CoursesScreenState extends State<CoursesScreen> {
             );
           }
 
-          final coursesList = snapshot.data ?? [];
+          final sectionsList = snapshot.data ?? [];
 
-          if (coursesList.isEmpty) {
+          if (sectionsList.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.school_outlined, size: 64, color: Colors.grey[400]),
+                  Icon(Icons.bookmark_add_outlined, size: 64, color: Colors.grey[400]),
                   const SizedBox(height: 16),
                   Text(
-                    'No Courses Found',
+                    'No Course Sections Found',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -75,13 +75,9 @@ class _CoursesScreenState extends State<CoursesScreen> {
 
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            itemCount: coursesList.length,
+            itemCount: sectionsList.length,
             itemBuilder: (context, index) {
-              final course = coursesList[index];
-              final books = course['books'] as List<dynamic>? ?? [];
-              final int booksCount = books.length;
-
-              final Color booksColor = booksCount > 0 ? Colors.green : Colors.grey;
+              final section = sectionsList[index];
 
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: 6),
@@ -106,25 +102,24 @@ class _CoursesScreenState extends State<CoursesScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CourseDetailsScreen(course),
+                          builder: (context) => CourseSectionDetailsScreen(section),
                         ),
                       );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
-                            width: 50,
-                            height: 64,
+                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                               color: Colors.indigo.withOpacity(0.08),
-                              borderRadius: BorderRadius.circular(10),
+                              shape: BoxShape.circle,
                             ),
                             child: const Icon(
-                              Icons.school_outlined,
+                              Icons.bookmark_add_outlined,
                               color: Colors.indigo,
-                              size: 26,
+                              size: 24,
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -133,7 +128,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  course['title']?.toString() ?? 'N/A',
+                                  'Course: ${section['course']?.toString() ?? 'N/A'}',
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -142,10 +137,9 @@ class _CoursesScreenState extends State<CoursesScreen> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  course['code']?.toString() ?? '',
+                                  'Semester: ${section['semester']?.toString() ?? 'N/A'}',
                                   style: TextStyle(
                                     fontSize: 13,
-                                    fontWeight: FontWeight.w500,
                                     color: Colors.grey[600],
                                   ),
                                 ),
@@ -162,7 +156,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                                         borderRadius: BorderRadius.circular(6),
                                       ),
                                       child: Text(
-                                        'Credits: ${course['credits'] ?? 'N/A'}',
+                                        'Section: ${section['sectionNumber']?.toString() ?? 'N/A'}',
                                         style: const TextStyle(
                                           color: Colors.indigo,
                                           fontSize: 11,
@@ -171,22 +165,15 @@ class _CoursesScreenState extends State<CoursesScreen> {
                                       ),
                                     ),
                                     const SizedBox(width: 8),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: booksColor.withOpacity(0.08),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
+                                    Expanded(
                                       child: Text(
-                                        'Books: $booksCount',
+                                        '${section['timeSlot']?.toString() ?? 'N/A'} (${section['daysOfWeek']?.toString() ?? 'N/A'})',
                                         style: TextStyle(
-                                          color: booksColor,
+                                          color: Colors.grey[600],
                                           fontSize: 11,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w500,
                                         ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                   ],

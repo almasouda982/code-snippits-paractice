@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fromclass/app/screens/enrollmentScreen.dart';
-import 'package:fromclass/app/screens/loginScreen.dart';
+import 'package:fromclass/App1/app/screens/enrollmentScreen.dart';
+import 'package:fromclass/App2/app/screens/loginScreen.dart';
 
 void main() {
   runApp(const MyApp());

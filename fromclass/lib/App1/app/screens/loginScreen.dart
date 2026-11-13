@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fromclass/app/screens/signupScreen.dart';
+import 'package:fromclass/App1/app/screens/signupScreen.dart';
 
 import '../../data/UserService.dart';
 import 'homeScreen.dart';
