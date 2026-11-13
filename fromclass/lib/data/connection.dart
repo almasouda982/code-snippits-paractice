@@ -1,6 +1,6 @@
 class ConnectionString {
-  static String baseUrl = 'https://w6djt55k-7130.inc1.devtunnels.ms/api';
-  static String dashboard = 'https://w6djt55k-7199.inc1.devtunnels.ms/';
+  static String baseUrl = 'https://qx58634b-7130.inc1.devtunnels.ms/api';
+  static String dashboard = 'https://qx58634b-7199.inc1.devtunnels.ms/';
   static String login = '$baseUrl/Users/Login';
   static String register = '$baseUrl/Users/Register';
 
@@ -17,5 +17,10 @@ class ConnectionString {
   // Degree related
   static String degreeProgram = '$baseUrl/DegreePrograms';
   static String degreeRequirement = '$baseUrl/DegreeRequirements';
+
+  // Book related
+  static String books = '$baseUrl/Books';
+  static String courseBooks = '$baseUrl/CourseBooks';
+
 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fromclass/app/screens/bookScreen.dart';
 import 'package:fromclass/app/screens/studentsScreen.dart';
 import 'package:fromclass/app/screens/coursePrerequisiteScreen.dart';
 import 'package:fromclass/app/screens/courseSectionScreen.dart';
@@ -62,6 +63,11 @@ class HomeScreen extends StatelessWidget {
       'title': 'Degree Requirements',
       'icon': Icons.sticky_note_2,
       'screen': const DegreeRequirementScreen(),
+    },
+    {
+      'title': 'Books',
+      'icon': Icons.book,
+      'screen': const BooksScreen(),
     },
 
 
